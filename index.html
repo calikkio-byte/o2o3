@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O2-O3-AHT for Fibromyalgia | Consensus Manual</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -25,49 +23,11 @@
             --bg-white: #ffffff;
         }
 
-        /* Dark Mode Variables */
-        [data-theme="dark"] {
-            --text-dark: #ecf0f1;
-            --text-light: #2c3e50;
-            --bg-light: #1a1a1a;
-            --bg-white: #2d2d2d;
-            --primary: #4a9eba;
-            --secondary: #2c5f7c;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             overflow-x: hidden;
-            background: var(--bg-white);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Print Styles */
-        @media print {
-            nav, .mobile-menu, .cta-buttons, #theme-toggle, #lang-toggle, 
-            #search-container, .comments-section, footer .footer-links {
-                display: none !important;
-            }
-            
-            body {
-                background: white;
-                color: black;
-            }
-            
-            section {
-                page-break-inside: avoid;
-                padding: 1rem !important;
-            }
-            
-            .card, .accordion-item {
-                page-break-inside: avoid;
-            }
-            
-            h1, h2, h3 {
-                page-break-after: avoid;
-            }
         }
 
         /* Navigation */
@@ -121,67 +81,6 @@
             cursor: pointer;
         }
 
-        /* Theme and Language Toggle */
-        .nav-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .toggle-btn {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .toggle-btn:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        /* Search Bar */
-        #search-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        #search-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            font-size: 1rem;
-            background: var(--bg-white);
-            color: var(--text-dark);
-        }
-
-        #search-results {
-            margin-top: 1rem;
-            background: var(--bg-white);
-            border-radius: 10px;
-            padding: 1rem;
-            display: none;
-        }
-
-        .search-result-item {
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-            border-left: 3px solid var(--accent);
-            background: var(--bg-light);
-            cursor: pointer;
-        }
-
-        .search-result-item:hover {
-            background: var(--primary);
-            color: white;
-        }
-
         /* Hero Section */
         .hero {
             margin-top: 70px;
@@ -215,7 +114,6 @@
             gap: 1rem;
             justify-content: center;
             margin-top: 2rem;
-            flex-wrap: wrap;
         }
 
         .btn {
@@ -471,7 +369,7 @@
         }
 
         .accordion-item.active .accordion-content {
-            max-height: 1000px;
+            max-height: 2000px;
             padding: 1.5rem;
         }
 
@@ -531,186 +429,6 @@
             font-size: 2rem;
         }
 
-        /* Quiz Section */
-        .quiz-container {
-            background: var(--bg-white);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin: 2rem 0;
-        }
-
-        .quiz-question {
-            margin-bottom: 2rem;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .quiz-option {
-            padding: 1rem;
-            background: var(--bg-light);
-            border: 2px solid transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .quiz-option:hover {
-            border-color: var(--primary);
-        }
-
-        .quiz-option.correct {
-            background: #d4edda;
-            border-color: var(--success);
-        }
-
-        .quiz-option.incorrect {
-            background: #f8d7da;
-            border-color: var(--accent);
-        }
-
-        /* Video Section */
-        .video-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .video-container iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
-
-        /* Comments Section */
-        .comments-section {
-            max-width: 900px;
-            margin: 3rem auto;
-            background: var(--bg-white);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .comment-form {
-            margin-bottom: 2rem;
-        }
-
-        .comment-form textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 100px;
-            background: var(--bg-white);
-            color: var(--text-dark);
-        }
-
-        .comment-form input {
-            width: 100%;
-            padding: 0.8rem;
-            margin-top: 1rem;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            font-family: inherit;
-            background: var(--bg-white);
-            color: var(--text-dark);
-        }
-
-        .comment-item {
-            background: var(--bg-light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .comment-author {
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .comment-date {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-left: 1rem;
-        }
-
-        /* Flowchart */
-        .flowchart-container {
-            background: var(--bg-white);
-            padding: 3rem 2rem;
-            border-radius: 15px;
-            margin: 3rem 0;
-            overflow-x: auto;
-        }
-
-        .flowchart {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            min-height: 300px;
-        }
-
-        .flow-step {
-            background: var(--success);
-            color: white;
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            min-width: 150px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            animation: flowBlink 3s infinite;
-            opacity: 0.3;
-        }
-
-        .flow-step.active {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .flow-arrow {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        @keyframes flowBlink {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* Glossary */
-        .glossary {
-            max-width: 900px;
-            margin: 3rem auto;
-        }
-
-        .glossary-item {
-            background: var(--bg-white);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .glossary-term {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
         /* Footer */
         footer {
             background: var(--text-dark);
@@ -744,13 +462,6 @@
 
         footer a:hover {
             color: var(--warning);
-        }
-
-        .footer-credits {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
         }
 
         /* Animations */
@@ -792,61 +503,6 @@
             transition: width 0.1s;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            nav ul.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .timeline::before {
-                left: 30px;
-            }
-
-            .timeline-item:nth-child(odd),
-            .timeline-item:nth-child(even) {
-                padding-left: 80px;
-                padding-right: 0;
-                text-align: left;
-            }
-
-            .timeline-item::after {
-                left: 30px;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .nav-controls {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
         /* Table styles */
         .responsive-table {
             overflow-x: auto;
@@ -856,7 +512,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background: var(--bg-white);
+            background: white;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             border-radius: 10px;
             overflow: hidden;
@@ -887,7 +543,7 @@
         }
 
         .biomarker-card {
-            background: var(--bg-white);
+            background: white;
             padding: 1.5rem;
             border-radius: 15px;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
@@ -912,9 +568,134 @@
             transition: width 1s ease;
         }
 
-        /* Language specific content */
-        [lang="it"] .lang-en { display: none; }
-        [lang="en"] .lang-it { display: none; }
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            nav ul.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 80px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item::after {
+                left: 30px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .protocol-steps {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.7rem 0.5rem;
+            }
+
+            .biomarker-viz {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                overflow-x: hidden;
+            }
+
+            * {
+                max-width: 100%;
+            }
+
+            .accordion-content ul {
+                margin-left: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -926,17 +707,14 @@
         <div class="container">
             <a href="#" class="logo">🫁 O₂-O₃-AHT Manual</a>
             <ul id="navMenu">
-                <li><a href="#intro" class="lang-it">Introduzione</a><a href="#intro" class="lang-en">Introduction</a></li>
-                <li><a href="#pathophysiology" class="lang-it">Fisiopatologia</a><a href="#pathophysiology" class="lang-en">Pathophysiology</a></li>
-                <li><a href="#mechanism" class="lang-it">Meccanismo</a><a href="#mechanism" class="lang-en">Mechanism</a></li>
-                <li><a href="#protocol" class="lang-it">Protocollo</a><a href="#protocol" class="lang-en">Protocol</a></li>
-                <li><a href="#safety" class="lang-it">Sicurezza</a><a href="#safety" class="lang-en">Safety</a></li>
-                <li><a href="#resources" class="lang-it">Risorse</a><a href="#resources" class="lang-en">Resources</a></li>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#pathophysiology">Pathophysiology</a></li>
+                <li><a href="#mechanism">Mechanism</a></li>
+                <li><a href="#protocol">Protocol</a></li>
+                <li><a href="#safety">Safety</a></li>
+                <li><a href="#flowchart">Flowchart</a></li>
+                <li><a href="#resources">Resources</a></li>
             </ul>
-            <div class="nav-controls">
-                <button id="theme-toggle" class="toggle-btn">🌓 <span class="lang-it">Tema</span><span class="lang-en">Theme</span></button>
-                <button id="lang-toggle" class="toggle-btn">🌐 EN/IT</button>
-            </div>
             <div class="mobile-menu" id="mobileMenu">☰</div>
         </div>
     </nav>
@@ -944,68 +722,56 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1 class="lang-it">Ossigeno-Ozono Autoemotrasfusione per la Fibromialgia</h1>
-            <h1 class="lang-en">Oxygen-Ozone Autohemotherapy for Fibromyalgia</h1>
-            <p class="lang-it">Un manuale completo sul meccanismo, protocollo e terapia guidata da biomarcatori</p>
-            <p class="lang-en">A Comprehensive Consensus Manual on Mechanism, Protocol, and Biomarker-Guided Therapy</p>
-            <p class="authors"><span class="lang-it">A cura di</span><span class="lang-en">Edited by</span> Roberto Casale, MD & Piercarlo Sarzi-Puttini, MD</p>
+            <h1>Oxygen-Ozone Autohemotherapy for Fibromyalgia</h1>
+            <p>A Comprehensive Consensus Manual on Mechanism, Protocol, and Biomarker-Guided Therapy</p>
+            <p class="authors">Edited by Roberto Casale, MD & Piercarlo Sarzi-Puttini, MD</p>
             <div class="cta-buttons">
-                <a href="#protocol" class="btn btn-primary"><span class="lang-it">Vedi Protocollo</span><span class="lang-en">View Protocol</span></a>
-                <button onclick="downloadPDF()" class="btn btn-secondary">📄 <span class="lang-it">Scarica PDF</span><span class="lang-en">Download PDF</span></button>
-                <a href="#" onclick="downloadOriginalManual()" class="btn btn-secondary">📚 <span class="lang-it">Manuale Originale</span><span class="lang-en">Original Manual</span></a>
+                <a href="#protocol" class="btn btn-primary">View Protocol</a>
+                <a href="#resources" class="btn btn-secondary">Download Manual</a>
             </div>
         </div>
     </section>
 
-    <!-- Search Section -->
-    <div id="search-container">
-        <input type="text" id="search-input" placeholder="🔍 Cerca nel manuale... / Search the manual...">
-        <div id="search-results"></div>
-    </div>
-
     <!-- Introduction -->
     <section id="intro">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Comprendere la Fibromialgia</span><span class="lang-en">Understanding Fibromyalgia</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Un disturbo complesso del dolore cronico che colpisce il 2-4% della popolazione globale</span><span class="lang-en">A complex chronic pain disorder affecting 2-4% of the global population</span></p>
+            <h2 class="section-title">Understanding Fibromyalgia</h2>
+            <p class="section-subtitle">A complex chronic pain disorder affecting 2-4% of the global population</p>
             
             <div class="stats">
                 <div class="stat-box">
                     <span class="stat-number">2-4%</span>
-                    <span class="stat-label"><span class="lang-it">Prevalenza Globale</span><span class="lang-en">Global Prevalence</span></span>
+                    <span class="stat-label">Global Prevalence</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-number">7:1</span>
-                    <span class="stat-label"><span class="lang-it">Rapporto Femmine:Maschi</span><span class="lang-en">Female:Male Ratio</span></span>
+                    <span class="stat-label">Female:Male Ratio</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-number">50%</span>
-                    <span class="stat-label"><span class="lang-it">Con Patologia Fibre Piccole</span><span class="lang-en">With Small Fiber Pathology</span></span>
+                    <span class="stat-label">With Small Fiber Pathology</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-number">&lt;50%</span>
-                    <span class="stat-label"><span class="lang-it">Risposta ai Farmaci Attuali</span><span class="lang-en">Response to Current Meds</span></span>
+                    <span class="stat-label">Response to Current Meds</span>
                 </div>
             </div>
 
             <div class="cards">
                 <div class="card">
                     <div class="card-icon">🎯</div>
-                    <h3><span class="lang-it">Evoluzione Diagnostica</span><span class="lang-en">Diagnostic Evolution</span></h3>
-                    <p class="lang-it">Dai tender points ACR del 1990 ai criteri del 2016 incentrati sull'indice del dolore diffuso (WPI) e sulla scala di gravità dei sintomi (SSS), ora classificato sotto il dolore primario cronico ICD-11.</p>
-                    <p class="lang-en">From 1990 ACR tender points to 2016 criteria focusing on widespread pain index (WPI) and symptom severity scale (SSS), now classified under ICD-11 chronic primary pain.</p>
+                    <h3>Diagnostic Evolution</h3>
+                    <p>From 1990 ACR tender points to 2016 criteria focusing on widespread pain index (WPI) and symptom severity scale (SSS), now classified under ICD-11 chronic primary pain.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">🧬</div>
-                    <h3><span class="lang-it">Stress Ossidativo</span><span class="lang-en">Oxidative Stress</span></h3>
-                    <p class="lang-it">Elevati MDA, AOPP e ridotta capacità antiossidante (TAC, GSH, SOD, GPx) indicano un profondo squilibrio redox cellulare come meccanismo fisiopatologico centrale.</p>
-                    <p class="lang-en">Elevated MDA, AOPP, and reduced antioxidant capacity (TAC, GSH, SOD, GPx) indicate profound cellular redox imbalance as a core pathophysiological mechanism.</p>
+                    <h3>Oxidative Stress</h3>
+                    <p>Elevated MDA, AOPP, and reduced antioxidant capacity (TAC, GSH, SOD, GPx) indicate profound cellular redox imbalance as a core pathophysiological mechanism.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">⚡</div>
-                    <h3><span class="lang-it">Disfunzione Mitocondriale</span><span class="lang-en">Mitochondrial Dysfunction</span></h3>
-                    <p class="lang-it">Attività ridotta del Complesso I, sintesi ATP ridotta e deficit energetici cellulari contribuiscono alla fatica e all'intolleranza all'esercizio caratteristiche della FM.</p>
-                    <p class="lang-en">Impaired Complex I activity, reduced ATP synthesis, and cellular energy deficits contribute to fatigue and exercise intolerance characteristic of FM.</p>
+                    <h3>Mitochondrial Dysfunction</h3>
+                    <p>Impaired Complex I activity, reduced ATP synthesis, and cellular energy deficits contribute to fatigue and exercise intolerance characteristic of FM.</p>
                 </div>
             </div>
         </div>
@@ -1014,27 +780,24 @@
     <!-- Pathophysiology -->
     <section id="pathophysiology">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Fisiopatologia e Patologia delle Piccole Fibre</span><span class="lang-en">Pathophysiology & Small Fiber Pathology</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Molteplici meccanismi interconnessi alla base dei sintomi della FM</span><span class="lang-en">Multiple interconnected mechanisms underlying FM symptoms</span></p>
+            <h2 class="section-title">Pathophysiology & Small Fiber Pathology</h2>
+            <p class="section-subtitle">Multiple interconnected mechanisms underlying FM symptoms</p>
 
             <div class="cards">
                 <div class="card">
                     <div class="card-icon">🔬</div>
-                    <h3><span class="lang-it">Neuropatia delle Piccole Fibre</span><span class="lang-en">Small Fiber Neuropathy</span></h3>
-                    <p class="lang-it">Il 40-50% dei pazienti con FM mostra una densità ridotta delle fibre nervose intraepidermiche (IENFD) alla biopsia cutanea, fornendo una patologia strutturale oggettiva.</p>
-                    <p class="lang-en">40-50% of FM patients show reduced intraepidermal nerve fiber density (IENFD) on skin biopsy, providing objective structural pathology.</p>
+                    <h3>Small Fiber Neuropathy</h3>
+                    <p>40-50% of FM patients show reduced intraepidermal nerve fiber density (IENFD) on skin biopsy, providing objective structural pathology.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">🧠</div>
-                    <h3><span class="lang-it">Sensibilizzazione Centrale</span><span class="lang-en">Central Sensitization</span></h3>
-                    <p class="lang-it">Amplificazione dei segnali del dolore nel SNC, elaborazione aberrante del dolore e neuroinfiammazione con attivazione gliale.</p>
-                    <p class="lang-en">Amplification of pain signals in the CNS, aberrant pain processing, and neuroinflammation with glial activation.</p>
+                    <h3>Central Sensitization</h3>
+                    <p>Amplification of pain signals in the CNS, aberrant pain processing, and neuroinflammation with glial activation.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">🔥</div>
-                    <h3><span class="lang-it">Neuroinfiammazione</span><span class="lang-en">Neuroinflammation</span></h3>
-                    <p class="lang-it">Elevati IL-6, TNF-α, IL-1β e hsCRP creano un microambiente pro-infiammatorio che danneggia le fibre nervose.</p>
-                    <p class="lang-en">Elevated IL-6, TNF-α, IL-1β, and hsCRP creating pro-inflammatory microenvironment that damages nerve fibers.</p>
+                    <h3>Neuroinflammation</h3>
+                    <p>Elevated IL-6, TNF-α, IL-1β, and hsCRP creating pro-inflammatory microenvironment that damages nerve fibers.</p>
                 </div>
             </div>
 
@@ -1042,10 +805,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th><span class="lang-it">Biomarcatore</span><span class="lang-en">Biomarker</span></th>
-                            <th><span class="lang-it">Intervallo Normale</span><span class="lang-en">Normal Range</span></th>
-                            <th><span class="lang-it">FM Tipico</span><span class="lang-en">FM Typical</span></th>
-                            <th><span class="lang-it">Significato Clinico</span><span class="lang-en">Clinical Significance</span></th>
+                            <th>Biomarker</th>
+                            <th>Normal Range</th>
+                            <th>FM Typical</th>
+                            <th>Clinical Significance</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1053,25 +816,25 @@
                             <td><strong>MDA</strong></td>
                             <td>&lt;2.0 μmol/L</td>
                             <td>2.5-4.5 μmol/L</td>
-                            <td><span class="lang-it">Marcatore di perossidazione lipidica</span><span class="lang-en">Lipid peroxidation marker</span></td>
+                            <td>Lipid peroxidation marker</td>
                         </tr>
                         <tr>
                             <td><strong>TAC</strong></td>
                             <td>1.3-1.8 mmol/L</td>
                             <td>0.8-1.2 mmol/L</td>
-                            <td><span class="lang-it">Capacità antiossidante totale</span><span class="lang-en">Total antioxidant capacity</span></td>
+                            <td>Total antioxidant capacity</td>
                         </tr>
                         <tr>
                             <td><strong>hsCRP</strong></td>
                             <td>&lt;1 mg/L</td>
                             <td>3-8 mg/L</td>
-                            <td><span class="lang-it">Infiammazione sistemica</span><span class="lang-en">Systemic inflammation</span></td>
+                            <td>Systemic inflammation</td>
                         </tr>
                         <tr>
                             <td><strong>GSH:GSSG</strong></td>
                             <td>&gt;10:1</td>
                             <td>5:1 to 8:1</td>
-                            <td><span class="lang-it">Stato redox cellulare</span><span class="lang-en">Cellular redox status</span></td>
+                            <td>Cellular redox status</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1082,131 +845,105 @@
     <!-- Nrf2 Mechanism -->
     <section id="mechanism">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Via Nrf2 e Meccanismo Ormetico</span><span class="lang-en">Nrf2 Pathway & Hormetic Mechanism</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Come l'O₂-O₃-AHT innesca risposte adattative benefiche</span><span class="lang-en">How O₂-O₃-AHT triggers beneficial adaptive responses</span></p>
+            <h2 class="section-title">Nrf2 Pathway & Hormetic Mechanism</h2>
+            <p class="section-subtitle">How O₂-O₃-AHT triggers beneficial adaptive responses</p>
 
             <div class="protocol-visual">
-                <h3><span class="lang-it">Principio Ormetico</span><span class="lang-en">Hormetic Principle</span></h3>
-                <p><span class="lang-it">Lo stress ossidativo a basso dosaggio attiva Nrf2, innescando l'upregolazione di oltre 200 geni citoprotettivi</span><span class="lang-en">Low-dose oxidative stress activates Nrf2, triggering upregulation of 200+ cytoprotective genes</span></p>
+                <h3>Hormetic Principle</h3>
+                <p>Low-dose oxidative stress activates Nrf2, triggering upregulation of 200+ cytoprotective genes</p>
                 <div class="protocol-steps">
                     <div class="protocol-step">
                         <div class="protocol-step-number">1</div>
-                        <h4><span class="lang-it">Contatto Ozono</span><span class="lang-en">Ozone Contact</span></h4>
-                        <p><span class="lang-it">Genera LOPs (4-HNE, MDA)</span><span class="lang-en">Generates LOPs (4-HNE, MDA)</span></p>
+                        <h4>Ozone Contact</h4>
+                        <p>Generates LOPs (4-HNE, MDA)</p>
                     </div>
                     <div class="protocol-step">
                         <div class="protocol-step-number">2</div>
-                        <h4><span class="lang-it">Ossidazione Keap1</span><span class="lang-en">Keap1 Oxidation</span></h4>
-                        <p><span class="lang-it">Rilascia Nrf2</span><span class="lang-en">Releases Nrf2</span></p>
+                        <h4>Keap1 Oxidation</h4>
+                        <p>Releases Nrf2</p>
                     </div>
                     <div class="protocol-step">
                         <div class="protocol-step-number">3</div>
-                        <h4><span class="lang-it">Traslocazione Nucleare</span><span class="lang-en">Nuclear Translocation</span></h4>
-                        <p><span class="lang-it">Nrf2 entra nel nucleo</span><span class="lang-en">Nrf2 enters nucleus</span></p>
+                        <h4>Nuclear Translocation</h4>
+                        <p>Nrf2 enters nucleus</p>
                     </div>
                     <div class="protocol-step">
                         <div class="protocol-step-number">4</div>
-                        <h4><span class="lang-it">Legame ARE</span><span class="lang-en">ARE Binding</span></h4>
-                        <p><span class="lang-it">Attiva trascrizione genica</span><span class="lang-en">Activates gene transcription</span></p>
+                        <h4>ARE Binding</h4>
+                        <p>Activates gene transcription</p>
                     </div>
                     <div class="protocol-step">
                         <div class="protocol-step-number">5</div>
-                        <h4><span class="lang-it">Produzione Enzimi</span><span class="lang-en">Enzyme Production</span></h4>
+                        <h4>Enzyme Production</h4>
                         <p>SOD, CAT, GPx, HO-1 ↑</p>
                     </div>
                 </div>
             </div>
 
-            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary);"><span class="lang-it">Dinamiche Temporali</span><span class="lang-en">Temporal Dynamics</span></h3>
+            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary);">Temporal Dynamics</h3>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="phase"><span class="lang-it">Fase Immediata</span><span class="lang-en">Immediate Phase</span></span>
-                        <h3>0-30 <span class="lang-it">minuti</span><span class="lang-en">minutes</span></h3>
-                        <p class="lang-it">I LOPs derivati dall'ozono (4-HNE) modificano covalentemente i residui di cisteina di Keap1, interrompendo l'interazione Keap1-Nrf2. L'attivazione MAPK fosforila Nrf2, facilitando la traslocazione nucleare.</p>
-                        <p class="lang-en">Ozone-derived LOPs (4-HNE) covalently modify Keap1 cysteine residues, disrupting Keap1-Nrf2 interaction. MAPK activation phosphorylates Nrf2, facilitating nuclear translocation.</p>
+                        <span class="phase">Immediate Phase</span>
+                        <h3>0-30 minutes</h3>
+                        <p>Ozone-derived LOPs (4-HNE) covalently modify Keap1 cysteine residues, disrupting Keap1-Nrf2 interaction. MAPK activation phosphorylates Nrf2, facilitating nuclear translocation.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="phase"><span class="lang-it">Fase Acuta</span><span class="lang-en">Acute Phase</span></span>
-                        <h3><span class="lang-it">Minuti a 6 ore</span><span class="lang-en">Minutes to 6 hours</span></h3>
-                        <p class="lang-it">Nrf2 stabilizzato si accumula e si trasloca al nucleo, eterodimerizzando con le proteine Maf e legandosi agli ARE. Inizia l'attivazione trascrizionale della batteria genica Nrf2.</p>
-                        <p class="lang-en">Stabilized Nrf2 accumulates and translocates to nucleus, heterodimerizing with Maf proteins and binding to AREs. Transcriptional activation of Nrf2 gene battery begins.</p>
+                        <span class="phase">Acute Phase</span>
+                        <h3>Minutes to 6 hours</h3>
+                        <p>Stabilized Nrf2 accumulates and translocates to nucleus, heterodimerizing with Maf proteins and binding to AREs. Transcriptional activation of Nrf2 gene battery begins.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="phase"><span class="lang-it">Fase Adattativa</span><span class="lang-en">Adaptive Phase</span></span>
-                        <h3>6-72 <span class="lang-it">ore</span><span class="lang-en">hours</span></h3>
-                        <p class="lang-it">Espressione di picco degli enzimi antiossidanti (aumenti di 5-10 volte). Massima resistenza allo stress cellulare e capacità anti-infiammatoria. Ripristino dell'omeostasi redox.</p>
-                        <p class="lang-en">Peak expression of antioxidant enzymes (5-10 fold increases). Maximum cellular stress resistance and anti-inflammatory capacity. Redox homeostasis restoration.</p>
+                        <span class="phase">Adaptive Phase</span>
+                        <h3>6-72 hours</h3>
+                        <p>Peak expression of antioxidant enzymes (5-10 fold increases). Maximum cellular stress resistance and anti-inflammatory capacity. Redox homeostasis restoration.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="phase"><span class="lang-it">Fase di Risoluzione</span><span class="lang-en">Resolution Phase</span></span>
-                        <h3>3-14 <span class="lang-it">giorni</span><span class="lang-en">days</span></h3>
-                        <p class="lang-it">Nrf2 ritorna al livello basale ma le proteine citoprotettive persistono a causa delle lunghe emivite. La resistenza allo stress aumentata viene mantenuta, fornendo la base per gli intervalli tra i trattamenti.</p>
-                        <p class="lang-en">Nrf2 returns to baseline but cytoprotective proteins persist due to long half-lives. Enhanced stress resistance maintained, providing basis for inter-treatment intervals.</p>
+                        <span class="phase">Resolution Phase</span>
+                        <h3>3-14 days</h3>
+                        <p>Nrf2 returns to baseline but cytoprotective proteins persist due to long half-lives. Enhanced stress resistance maintained, providing basis for inter-treatment intervals.</p>
                     </div>
                 </div>
             </div>
 
             <div class="biomarker-viz">
                 <div class="biomarker-card">
-                    <h4><span class="lang-it">Riduzione MDA</span><span class="lang-en">MDA Reduction</span></h4>
-                    <p><span class="lang-it">Diminuzione del 20-40%</span><span class="lang-en">20-40% decrease</span></p>
+                    <h4>MDA Reduction</h4>
+                    <p>20-40% decrease</p>
                     <div class="progress-meter">
                         <div class="progress-meter-fill" style="width: 35%"></div>
                     </div>
-                    <small><span class="lang-it">Indica ridotta perossidazione lipidica</span><span class="lang-en">Indicates reduced lipid peroxidation</span></small>
+                    <small>Indicates reduced lipid peroxidation</small>
                 </div>
                 <div class="biomarker-card">
-                    <h4><span class="lang-it">Aumento TAC</span><span class="lang-en">TAC Increase</span></h4>
-                    <p><span class="lang-it">Aumento del 20-40%</span><span class="lang-en">20-40% increase</span></p>
+                    <h4>TAC Increase</h4>
+                    <p>20-40% increase</p>
                     <div class="progress-meter">
                         <div class="progress-meter-fill" style="width: 30%"></div>
                     </div>
-                    <small><span class="lang-it">Riserve antiossidanti potenziate</span><span class="lang-en">Enhanced antioxidant reserves</span></small>
+                    <small>Enhanced antioxidant reserves</small>
                 </div>
                 <div class="biomarker-card">
-                    <h4><span class="lang-it">Diminuzione hsCRP</span><span class="lang-en">hsCRP Decrease</span></h4>
-                    <p><span class="lang-it">Riduzione del 30-50%</span><span class="lang-en">30-50% reduction</span></p>
+                    <h4>hsCRP Decrease</h4>
+                    <p>30-50% reduction</p>
                     <div class="progress-meter">
                         <div class="progress-meter-fill" style="width: 40%"></div>
                     </div>
-                    <small><span class="lang-it">Ridotta infiammazione sistemica</span><span class="lang-en">Reduced systemic inflammation</span></small>
+                    <small>Reduced systemic inflammation</small>
                 </div>
                 <div class="biomarker-card">
-                    <h4><span class="lang-it">Riduzione Dolore</span><span class="lang-en">Pain Reduction</span></h4>
-                    <p><span class="lang-it">Diminuzione del 30-40%</span><span class="lang-en">30-40% decrease</span></p>
+                    <h4>Pain Reduction</h4>
+                    <p>30-40% decrease</p>
                     <div class="progress-meter">
                         <div class="progress-meter-fill" style="width: 35%"></div>
                     </div>
-                    <small><span class="lang-it">Miglioramento punteggio VAS</span><span class="lang-en">VAS score improvement</span></small>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Flowchart -->
-    <section id="flowchart">
-        <div class="container">
-            <h2 class="section-title"><span class="lang-it">Flowchart Interattivo del Trattamento</span><span class="lang-en">Interactive Treatment Flowchart</span></h2>
-            <div class="flowchart-container">
-                <div class="flowchart" id="interactiveFlowchart">
-                    <div class="flow-step" data-step="1"><span class="lang-it">Valutazione Paziente</span><span class="lang-en">Patient Assessment</span></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step" data-step="2"><span class="lang-it">Screening G6PD</span><span class="lang-en">G6PD Screening</span></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step" data-step="3"><span class="lang-it">Biomarcatori Basali</span><span class="lang-en">Baseline Biomarkers</span></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step" data-step="4"><span class="lang-it">Fase Intensiva</span><span class="lang-en">Intensive Phase</span></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step" data-step="5"><span class="lang-it">Valutazione Risposta</span><span class="lang-en">Response Evaluation</span></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step" data-step="6"><span class="lang-it">Fase Mantenimento</span><span class="lang-en">Maintenance Phase</span></div>
+                    <small>VAS score improvement</small>
                 </div>
             </div>
         </div>
@@ -1215,242 +952,123 @@
     <!-- Protocol -->
     <section id="protocol">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Protocollo di Trattamento Ottimizzato</span><span class="lang-en">Optimized Treatment Protocol</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Approccio personalizzato guidato da biomarcatori</span><span class="lang-en">Biomarker-guided, person-tailored approach</span></p>
+            <h2 class="section-title">Optimized Treatment Protocol</h2>
+            <p class="section-subtitle">Biomarker-guided, person-tailored approach</p>
 
             <div class="accordion">
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3><span class="lang-it">Valutazione Pre-Trattamento</span><span class="lang-en">Pre-Treatment Assessment</span></h3>
+                        <h3>Pre-Treatment Assessment</h3>
                         <span class="accordion-icon">▼</span>
                     </div>
                     <div class="accordion-content">
-                        <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;"><span class="lang-it">Fenotipizzazione del Paziente:</span><span class="lang-en">Patient Phenotyping:</span></h4>
+                        <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;">Patient Phenotyping:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><span class="lang-it">Alto stress ossidativo (MDA >2.5 μmol/L)</span><span class="lang-en">High oxidative stress (MDA >2.5 μmol/L)</span></li>
-                            <li><span class="lang-it">Fenotipo infiammatorio (hsCRP >3 mg/L)</span><span class="lang-en">Inflammatory phenotype (hsCRP >3 mg/L)</span></li>
-                            <li><span class="lang-it">Disfunzione mitocondriale (fatica, intolleranza all'esercizio)</span><span class="lang-en">Mitochondrial dysfunction (fatigue, exercise intolerance)</span></li>
-                            <li><span class="lang-it">Patologia delle piccole fibre (dolore bruciante, disestesie)</span><span class="lang-en">Small fiber pathology (burning pain, dysesthesias)</span></li>
+                            <li>High oxidative stress (MDA >2.5 μmol/L)</li>
+                            <li>Inflammatory phenotype (hsCRP >3 mg/L)</li>
+                            <li>Mitochondrial dysfunction (fatigue, exercise intolerance)</li>
+                            <li>Small fiber pathology (burning pain, dysesthesias)</li>
+                        </ul>
+                        <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;">Mandatory Screening:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>G6PD Activity</strong> - ABSOLUTE REQUIREMENT (deficiency = contraindication)</li>
+                            <li>Complete blood count (CBC)</li>
+                            <li>Comprehensive metabolic panel (CMP)</li>
+                            <li>Thyroid function (TSH, free T4)</li>
+                        </ul>
+                        <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;">Baseline Biomarkers:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li>Oxidative stress: MDA, AOPP, 8-OHdG</li>
+                            <li>Antioxidant capacity: TAC, SOD, GPx</li>
+                            <li>Inflammation: hsCRP, IL-6, TNF-α</li>
+                            <li>Glutathione status: GSH, GSH:GSSG ratio</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3><span class="lang-it">Fase Intensiva (4-6 settimane)</span><span class="lang-en">Intensive Phase (4-6 weeks)</span></h3>
+                        <h3>Intensive Phase (4-6 weeks)</h3>
                         <span class="accordion-icon">▼</span>
                     </div>
                     <div class="accordion-content">
-                        <h4 style="color: var(--success); margin: 1rem 0;"><span class="lang-it">Parametri Principali:</span><span class="lang-en">Core Parameters:</span></h4>
+                        <h4 style="color: var(--success); margin: 1rem 0;">Core Parameters:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><strong><span class="lang-it">Frequenza:</span><span class="lang-en">Frequency:</span></strong> 2-3 <span class="lang-it">sessioni/settimana (intervallate di 2-4 giorni)</span><span class="lang-en">sessions/week (spaced 2-4 days apart)</span></li>
-                            <li><strong><span class="lang-it">Durata:</span><span class="lang-en">Duration:</span></strong> 4-6 <span class="lang-it">settimane totali</span><span class="lang-en">weeks total</span></li>
-                            <li><strong><span class="lang-it">Sessioni totali:</span><span class="lang-en">Total sessions:</span></strong> 8-18 (<span class="lang-it">in base alla gravità</span><span class="lang-en">based on severity</span>)</li>
-                            <li><strong><span class="lang-it">Volume sangue:</span><span class="lang-en">Blood volume:</span></strong> 100-150 mL (<span class="lang-it">regolare in base alla taglia del paziente</span><span class="lang-en">adjust for patient size</span>)</li>
-                            <li><strong><span class="lang-it">Velocità reinfusione:</span><span class="lang-en">Reinfusion rate:</span></strong> 1 <span class="lang-it">goccia/secondo, max 90 gocce/minuto</span><span class="lang-en">drop/second, max 90 drops/minute</span></li>
+                            <li><strong>Frequency:</strong> 2-3 sessions/week (spaced 2-4 days apart)</li>
+                            <li><strong>Duration:</strong> 4-6 weeks total</li>
+                            <li><strong>Total sessions:</strong> 8-18 (based on severity)</li>
+                            <li><strong>Blood volume:</strong> 100-150 mL (adjust for patient size)</li>
+                            <li><strong>Reinfusion rate:</strong> 1 drop/second, max 90 drops/minute</li>
                         </ul>
-                        <h4 style="color: var(--success); margin: 1.5rem 0 1rem;"><span class="lang-it">Concentrazione Ozono (Escalation Progressiva):</span><span class="lang-en">Ozone Concentration (Progressive Escalation):</span></h4>
+                        <h4 style="color: var(--success); margin: 1.5rem 0 1rem;">Ozone Concentration (Progressive Escalation):</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><strong><span class="lang-it">Sessioni iniziali (1-3):</span><span class="lang-en">Initial sessions (1-3):</span></strong> 10-20 μg/mL</li>
-                            <li><strong><span class="lang-it">Sessioni medie (4-8):</span><span class="lang-en">Middle sessions (4-8):</span></strong> 20-30 μg/mL</li>
-                            <li><strong><span class="lang-it">Sessioni successive (9-15):</span><span class="lang-en">Later sessions (9-15):</span></strong> 30-40 μg/mL</li>
-                            <li><strong><span class="lang-it">Massimo:</span><span class="lang-en">Maximum:</span></strong> 40 μg/mL (<span class="lang-it">limite zona ormetica</span><span class="lang-en">hormetic zone ceiling</span>)</li>
+                            <li><strong>Initial sessions (1-3):</strong> 10-20 μg/mL</li>
+                            <li><strong>Middle sessions (4-8):</strong> 20-30 μg/mL</li>
+                            <li><strong>Later sessions (9-15):</strong> 30-40 μg/mL</li>
+                            <li><strong>Maximum:</strong> 40 μg/mL (hormetic zone ceiling)</li>
                         </ul>
-                        <h4 style="color: var(--success); margin: 1.5rem 0 1rem;"><span class="lang-it">Valutazioni Intermedie:</span><span class="lang-en">Interim Assessments:</span></h4>
+                        <h4 style="color: var(--success); margin: 1.5rem 0 1rem;">Interim Assessments:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><strong><span class="lang-it">Settimana 2-3:</span><span class="lang-en">Week 2-3:</span></strong> <span class="lang-it">Dolore/funzione, controllo tolleranza</span><span class="lang-en">Pain/function, tolerance check</span></li>
-                            <li><strong><span class="lang-it">Settimana 4-5:</span><span class="lang-en">Week 4-5:</span></strong> <span class="lang-it">Rivalutazione completa + PGIC</span><span class="lang-en">Comprehensive reassessment + PGIC</span></li>
-                            <li><strong><span class="lang-it">Settimana 6:</span><span class="lang-en">Week 6:</span></strong> <span class="lang-it">Esito completo + ripetizione biomarcatori</span><span class="lang-en">Full outcome + biomarker repeat</span></li>
+                            <li><strong>Week 2-3:</strong> Pain/function, tolerance check</li>
+                            <li><strong>Week 4-5:</strong> Comprehensive reassessment + PGIC</li>
+                            <li><strong>Week 6:</strong> Full outcome + biomarker repeat</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3><span class="lang-it">Fase di Mantenimento (6-12+ mesi)</span><span class="lang-en">Maintenance Phase (6-12+ months)</span></h3>
+                        <h3>Maintenance Phase (6-12+ months)</h3>
                         <span class="accordion-icon">▼</span>
                     </div>
                     <div class="accordion-content">
-                        <h4 style="color: var(--warning); margin: 1rem 0;"><span class="lang-it">Opzioni di Frequenza:</span><span class="lang-en">Frequency Options:</span></h4>
+                        <h4 style="color: var(--warning); margin: 1rem 0;">Frequency Options:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><strong><span class="lang-it">Programma fisso:</span><span class="lang-en">Fixed schedule:</span></strong> <span class="lang-it">Mensile (ogni 3-4 settimane) per i primi 6 mesi</span><span class="lang-en">Monthly (every 3-4 weeks) for first 6 months</span></li>
-                            <li><strong><span class="lang-it">Innescato da sintomi:</span><span class="lang-en">Symptom-triggered:</span></strong> <span class="lang-it">Quando il dolore aumenta ≥20-30% per ≥1 settimana</span><span class="lang-en">When pain increases ≥20-30% for ≥1 week</span></li>
-                            <li><strong><span class="lang-it">Guidato da biomarcatori:</span><span class="lang-en">Biomarker-guided:</span></strong> <span class="lang-it">Quando MDA aumenta >20% o TAC diminuisce >15%</span><span class="lang-en">When MDA rises >20% or TAC declines >15%</span></li>
+                            <li><strong>Fixed schedule:</strong> Monthly (every 3-4 weeks) for first 6 months</li>
+                            <li><strong>Symptom-triggered:</strong> When pain increases ≥20-30% for ≥1 week</li>
+                            <li><strong>Biomarker-guided:</strong> When MDA rises >20% or TAC declines >15%</li>
                         </ul>
-                        <h4 style="color: var(--warning); margin: 1.5rem 0 1rem;"><span class="lang-it">Criteri di Risposta per Procedere:</span><span class="lang-en">Response Criteria to Proceed:</span></h4>
+                        <h4 style="color: var(--warning); margin: 1.5rem 0 1rem;">Response Criteria to Proceed:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><span class="lang-it">Riduzione del dolore ≥30% O diminuzione VAS ≥2 punti</span><span class="lang-en">Pain reduction ≥30% OR VAS decrease ≥2 points</span></li>
-                            <li><span class="lang-it">Riduzione FIQ ≥20% O diminuzione ≥15 punti</span><span class="lang-en">FIQ reduction ≥20% OR decrease ≥15 points</span></li>
-                            <li>PGIC: <span class="lang-it">"molto migliorato" o "moltissimo migliorato"</span><span class="lang-en">"much improved" or "very much improved"</span></li>
-                            <li><span class="lang-it">Cambiamenti favorevoli dei biomarcatori (↓MDA, ↑TAC, ↓hsCRP)</span><span class="lang-en">Favorable biomarker changes (↓MDA, ↑TAC, ↓hsCRP)</span></li>
+                            <li>Pain reduction ≥30% OR VAS decrease ≥2 points</li>
+                            <li>FIQ reduction ≥20% OR decrease ≥15 points</li>
+                            <li>PGIC: "much improved" or "very much improved"</li>
+                            <li>Favorable biomarker changes (↓MDA, ↑TAC, ↓hsCRP)</li>
                         </ul>
                         <p style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 8px;">
-                            <strong><span class="lang-it">Durata:</span><span class="lang-en">Duration:</span></strong> <span class="lang-it">Tipicamente 6-12 mesi; alcuni pazienti richiedono un mantenimento prolungato (12-24 mesi) o terapia a bassa frequenza a lungo termine (ogni 2-3 mesi).</span><span class="lang-en">Typically 6-12 months; some patients require extended maintenance (12-24 months) or long-term low-frequency therapy (every 2-3 months).</span>
+                            <strong>Duration:</strong> Typically 6-12 months; some patients require extended maintenance (12-24 months) or long-term low-frequency therapy (every 2-3 months).
                         </p>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3><span class="lang-it">Terapie Nutrizionali e Adiuvanti</span><span class="lang-en">Nutritional & Adjunctive Therapies</span></h3>
+                        <h3>Nutritional & Adjunctive Therapies</h3>
                         <span class="accordion-icon">▼</span>
                     </div>
                     <div class="accordion-content">
-                        <h4 style="color: var(--primary); margin: 1rem 0;"><span class="lang-it">Dieta Mediterranea:</span><span class="lang-en">Mediterranean Diet:</span></h4>
+                        <h4 style="color: var(--primary); margin: 1rem 0;">Mediterranean Diet:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><span class="lang-it">Frutta e verdura: 5-9 porzioni al giorno</span><span class="lang-en">Fruits & vegetables: 5-9 servings daily</span></li>
-                            <li><span class="lang-it">Pesce: 2-3 porzioni a settimana</span><span class="lang-en">Fish: 2-3 servings per week</span></li>
-                            <li><span class="lang-it">Olio d'oliva: 3-4 cucchiai al giorno</span><span class="lang-en">Olive oil: 3-4 tablespoons daily</span></li>
-                            <li><span class="lang-it">Frutta secca: ~30 grammi al giorno</span><span class="lang-en">Nuts: ~30 grams daily</span></li>
-                            <li><span class="lang-it">Carne rossa: Limitata a ≤1 porzione a settimana</span><span class="lang-en">Red meat: Limited to ≤1 serving weekly</span></li>
+                            <li>Fruits & vegetables: 5-9 servings daily</li>
+                            <li>Fish: 2-3 servings per week</li>
+                            <li>Olive oil: 3-4 tablespoons daily</li>
+                            <li>Nuts: ~30 grams daily</li>
+                            <li>Red meat: Limited to ≤1 serving weekly</li>
                         </ul>
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;"><span class="lang-it">Integratori:</span><span class="lang-en">Supplements:</span></h4>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">Supplements:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><strong>Coenzima Q10:</strong> 200-300 mg <span class="lang-it">al giorno (forma ubichinolo)</span><span class="lang-en">daily (ubiquinol form)</span> ✅</li>
-                            <li><strong><span class="lang-it">Idratazione:</span><span class="lang-en">Hydration:</span></strong> 2-3 <span class="lang-it">litri di acqua al giorno</span><span class="lang-en">liters water daily</span> ✅</li>
-                            <li><strong><span class="lang-it">Evitare durante la fase intensiva:</span><span class="lang-en">Avoid during intensive phase:</span></strong> <span class="lang-it">Vit C ad alto dosaggio (>1000mg), Vit E (>400 UI), glutatione 24-48h prima/dopo le sessioni</span><span class="lang-en">High-dose Vit C (>1000mg), Vit E (>400 IU), glutathione 24-48h before/after sessions</span> ⚠️</li>
+                            <li><strong>Coenzyme Q10:</strong> 200-300 mg daily (ubiquinol form) ✅</li>
+                            <li><strong>Hydration:</strong> 2-3 liters water daily ✅</li>
+                            <li><strong>Avoid during intensive phase:</strong> High-dose Vit C (>1000mg), Vit E (>400 IU), glutathione 24-48h before/after sessions ⚠️</li>
                         </ul>
-                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;"><span class="lang-it">Non Farmacologico:</span><span class="lang-en">Non-Pharmacological:</span></h4>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">Non-Pharmacological:</h4>
                         <ul style="line-height: 2; margin-left: 2rem;">
-                            <li><span class="lang-it">Esercizio: Aerobico 2-3 volte/settimana, terapia acquatica</span><span class="lang-en">Exercise: Aerobic 2-3x/week, aquatic therapy</span></li>
-                            <li><span class="lang-it">CBT o ACT per la catastrofizzazione del dolore</span><span class="lang-en">CBT or ACT for pain catastrophizing</span></li>
-                            <li><span class="lang-it">Ottimizzazione dell'igiene del sonno</span><span class="lang-en">Sleep hygiene optimization</span></li>
-                            <li><span class="lang-it">Educazione del paziente sull'autogestione</span><span class="lang-en">Patient education on self-management</span></li>
+                            <li>Exercise: Aerobic 2-3x/week, aquatic therapy</li>
+                            <li>CBT or ACT for pain catastrophizing</li>
+                            <li>Sleep hygiene optimization</li>
+                            <li>Patient education on self-management</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Video Tutorial Section -->
-    <section id="videos">
-        <div class="container">
-            <h2 class="section-title"><span class="lang-it">Video Tutorial Procedurali</span><span class="lang-en">Procedural Video Tutorials</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Guida visiva alla procedura O₂-O₃-AHT</span><span class="lang-en">Visual guide to O₂-O₃-AHT procedure</span></p>
-            
-            <div class="video-container">
-                <!-- Replace with actual video URL -->
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-            </div>
-            
-            <p style="text-align: center; margin-top: 1rem; color: #7f8c8d;">
-                <span class="lang-it">Video dimostrativo della tecnica di autoemotrasfusione con ozono</span>
-                <span class="lang-en">Demonstration video of ozone autohemotherapy technique</span>
-            </p>
-        </div>
-    </section>
-
-    <!-- Quiz Section -->
-    <section id="quiz">
-        <div class="container">
-            <h2 class="section-title"><span class="lang-it">Quiz Interattivo</span><span class="lang-en">Interactive Quiz</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Verifica la tua comprensione del protocollo</span><span class="lang-en">Test your understanding of the protocol</span></p>
-            
-            <div class="quiz-container">
-                <div class="quiz-question">
-                    <h3><span class="lang-it">1. Qual è la concentrazione massima di ozono raccomandata?</span><span class="lang-en">1. What is the maximum recommended ozone concentration?</span></h3>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q1"> 20 μg/mL
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q1"> 30 μg/mL
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">
-                            <input type="radio" name="q1"> 40 μg/mL
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q1"> 50 μg/mL
-                        </div>
-                    </div>
-                </div>
-
-                <div class="quiz-question">
-                    <h3><span class="lang-it">2. Quale test è obbligatorio prima del trattamento?</span><span class="lang-en">2. Which test is mandatory before treatment?</span></h3>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q2"> <span class="lang-it">Emocromo completo</span><span class="lang-en">Complete blood count</span>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">
-                            <input type="radio" name="q2"> <span class="lang-it">Screening G6PD</span><span class="lang-en">G6PD screening</span>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q2"> <span class="lang-it">Test di funzionalità epatica</span><span class="lang-en">Liver function tests</span>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q2"> <span class="lang-it">Elettrocardiogramma</span><span class="lang-en">Electrocardiogram</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="quiz-question">
-                    <h3><span class="lang-it">3. Quante sessioni sono tipicamente richieste nella fase intensiva?</span><span class="lang-en">3. How many sessions are typically required in the intensive phase?</span></h3>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q3"> 4-6
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">
-                            <input type="radio" name="q3"> 8-18
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q3"> 20-25
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">
-                            <input type="radio" name="q3"> 30-40
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Glossary Section -->
-    <section id="glossary">
-        <div class="container">
-            <h2 class="section-title"><span class="lang-it">Glossario</span><span class="lang-en">Glossary</span></h2>
-            
-            <div class="glossary">
-                <div class="glossary-item">
-                    <div class="glossary-term">Nrf2</div>
-                    <p class="lang-it">Fattore nucleare eritroide 2 correlato al fattore 2 - Un fattore di trascrizione chiave che regola l'espressione di geni antiossidanti e citoprotettivi.</p>
-                    <p class="lang-en">Nuclear factor erythroid 2-related factor 2 - A key transcription factor that regulates the expression of antioxidant and cytoprotective genes.</p>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term">MDA</div>
-                    <p class="lang-it">Malondialdeide - Un biomarcatore di stress ossidativo e perossidazione lipidica.</p>
-                    <p class="lang-en">Malondialdehyde - A biomarker of oxidative stress and lipid peroxidation.</p>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term">TAC</div>
-                    <p class="lang-it">Capacità Antiossidante Totale - Una misura della capacità complessiva del corpo di neutralizzare i radicali liberi.</p>
-                    <p class="lang-en">Total Antioxidant Capacity - A measure of the body's overall ability to neutralize free radicals.</p>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term">G6PD</div>
-                    <p class="lang-it">Glucosio-6-fosfato deidrogenasi - Un enzima essenziale per la protezione cellulare dallo stress ossidativo. La sua carenza è una controindicazione assoluta all'ozonoterapia.</p>
-                    <p class="lang-en">Glucose-6-phosphate dehydrogenase - An enzyme essential for cellular protection from oxidative stress. Its deficiency is an absolute contraindication to ozone therapy.</p>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term"><span class="lang-it">Ormesi</span><span class="lang-en">Hormesis</span></div>
-                    <p class="lang-it">Un fenomeno biologico in cui una dose bassa di un agente stressante induce risposte adattative benefiche che migliorano la resilienza cellulare.</p>
-                    <p class="lang-en">A biological phenomenon where a low dose of a stressful agent induces beneficial adaptive responses that enhance cellular resilience.</p>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term">LOPs</div>
-                    <p class="lang-it">Prodotti di Ossidazione Lipidica - Molecole come 4-HNE che agiscono come messaggeri per attivare percorsi antiossidanti.</p>
-                    <p class="lang-en">Lipid Oxidation Products - Molecules like 4-HNE that act as messengers to activate antioxidant pathways.</p>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term">IENFD</div>
-                    <p class="lang-it">Densità delle Fibre Nervose Intraepidermiche - Una misura della neuropatia delle piccole fibre ottenuta tramite biopsia cutanea.</p>
-                    <p class="lang-en">Intraepidermal Nerve Fiber Density - A measure of small fiber neuropathy obtained through skin biopsy.</p>
                 </div>
             </div>
         </div>
@@ -1459,120 +1077,167 @@
     <!-- Safety -->
     <section id="safety">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Sicurezza e Controindicazioni</span><span class="lang-en">Safety & Contraindications</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Garantire la sicurezza del paziente attraverso screening e monitoraggio adeguati</span><span class="lang-en">Ensuring patient safety through proper screening and monitoring</span></p>
+            <h2 class="section-title">Safety & Contraindications</h2>
+            <p class="section-subtitle">Ensuring patient safety through proper screening and monitoring</p>
 
             <div class="safety-alert">
                 <h3>
                     <span class="safety-alert-icon">⚠️</span>
-                    <span class="lang-it">CRITICO: Screening G6PD Obbligatorio</span>
-                    <span class="lang-en">CRITICAL: Mandatory G6PD Screening</span>
+                    CRITICAL: Mandatory G6PD Screening
                 </h3>
-                <p style="font-size: 1.1rem; line-height: 1.8;" class="lang-it">
-                    La carenza di glucosio-6-fosfato deidrogenasi (G6PD) è una CONTROINDICAZIONE ASSOLUTA all'ozonoterapia. Questa condizione genetica colpisce circa 400 milioni di persone a livello globale con la massima prevalenza nelle popolazioni mediterranee, africane, asiatiche e mediorientali. Lo screening G6PD DEVE essere eseguito prima di qualsiasi trattamento: la carenza può causare crisi emolitica pericolosa per la vita.
-                </p>
-                <p style="font-size: 1.1rem; line-height: 1.8;" class="lang-en">
+                <p style="font-size: 1.1rem; line-height: 1.8;">
                     Glucose-6-phosphate dehydrogenase (G6PD) deficiency is an ABSOLUTE CONTRAINDICATION to ozone therapy. This genetic condition affects ~400 million people globally with highest prevalence in Mediterranean, African, Asian, and Middle Eastern populations. G6PD screening MUST be performed before any treatment—deficiency can cause life-threatening hemolytic crisis.
                 </p>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0;">
                 <div style="background: #ffe6e6; padding: 2rem; border-radius: 15px; border-left: 5px solid var(--accent);">
-                    <h3 style="color: var(--accent); margin-bottom: 1rem;">🛑 <span class="lang-it">Controindicazioni Assolute</span><span class="lang-en">Absolute Contraindications</span></h3>
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">🛑 Absolute Contraindications</h3>
                     <ul style="line-height: 2;">
-                        <li><strong><span class="lang-it">Carenza di G6PD / Favismo</span><span class="lang-en">G6PD deficiency / Favism</span></strong></li>
-                        <li><span class="lang-it">Anemia emolitica acuta</span><span class="lang-en">Acute hemolytic anemia</span></li>
-                        <li><span class="lang-it">Sanguinamento attivo / coagulopatie</span><span class="lang-en">Active bleeding / coagulopathies</span></li>
-                        <li><span class="lang-it">Trombocitopenia grave (&lt;50k/μL)</span><span class="lang-en">Severe thrombocytopenia (&lt;50k/μL)</span></li>
-                        <li><span class="lang-it">Ipertiroidismo attivo</span><span class="lang-en">Active hyperthyroidism</span></li>
-                        <li><span class="lang-it">Gravidanza</span><span class="lang-en">Pregnancy</span></li>
-                        <li><span class="lang-it">IM recente (&lt;3 mesi)</span><span class="lang-en">Recent MI (&lt;3 months)</span></li>
-                        <li><span class="lang-it">Forame ovale pervio</span><span class="lang-en">Patent foramen ovale</span></li>
+                        <li><strong>G6PD deficiency / Favism</strong></li>
+                        <li>Acute hemolytic anemia</li>
+                        <li>Active bleeding / coagulopathies</li>
+                        <li>Severe thrombocytopenia (&lt;50k/μL)</li>
+                        <li>Active hyperthyroidism</li>
+                        <li>Pregnancy</li>
+                        <li>Recent MI (&lt;3 months)</li>
+                        <li>Patent foramen ovale</li>
                     </ul>
                 </div>
 
                 <div style="background: #fff4e6; padding: 2rem; border-radius: 15px; border-left: 5px solid var(--warning);">
-                    <h3 style="color: var(--warning); margin-bottom: 1rem;">⚡ <span class="lang-it">Controindicazioni Relative</span><span class="lang-en">Relative Contraindications</span></h3>
+                    <h3 style="color: var(--warning); margin-bottom: 1rem;">⚡ Relative Contraindications</h3>
                     <ul style="line-height: 2;">
-                        <li><span class="lang-it">Ipertensione non controllata (PA &gt;180/110)</span><span class="lang-en">Uncontrolled hypertension (BP &gt;180/110)</span></li>
-                        <li><span class="lang-it">Terapia anticoagulante attiva</span><span class="lang-en">Active anticoagulation therapy</span></li>
-                        <li><span class="lang-it">Anemia significativa (Hb &lt;10 g/dL)</span><span class="lang-en">Significant anemia (Hb &lt;10 g/dL)</span></li>
-                        <li><span class="lang-it">Neoplasia attiva (consultare oncologo)</span><span class="lang-en">Active malignancy (consult oncologist)</span></li>
-                        <li><span class="lang-it">Disturbi neurodegenerativi (consultare neurologo)</span><span class="lang-en">Neurodegenerative disorders (consult neurologist)</span></li>
-                        <li><span class="lang-it">Disturbo convulsivo (preoccupazione teorica)</span><span class="lang-en">Seizure disorder (theoretical concern)</span></li>
+                        <li>Uncontrolled hypertension (BP &gt;180/110)</li>
+                        <li>Active anticoagulation therapy</li>
+                        <li>Significant anemia (Hb &lt;10 g/dL)</li>
+                        <li>Active malignancy (consult oncologist)</li>
+                        <li>Neurodegenerative disorders (consult neurologist)</li>
+                        <li>Seizure disorder (theoretical concern)</li>
                     </ul>
                 </div>
             </div>
 
-            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary);"><span class="lang-it">Effetti Collaterali Comuni (incidenza 5-15%)</span><span class="lang-en">Common Side Effects (5-15% incidence)</span></h3>
+            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary);">Common Side Effects (5-15% incidence)</h3>
             <div class="cards">
                 <div class="card">
                     <div class="card-icon">😴</div>
-                    <h3><span class="lang-it">Affaticamento Transitorio</span><span class="lang-en">Transient Fatigue</span></h3>
-                    <p><strong><span class="lang-it">Incidenza:</span><span class="lang-en">Incidence:</span></strong> 5-10%<br>
-                    <strong><span class="lang-it">Durata:</span><span class="lang-en">Duration:</span></strong> 12-24 <span class="lang-it">ore</span><span class="lang-en">hours</span><br>
-                    <strong><span class="lang-it">Gestione:</span><span class="lang-en">Management:</span></strong> <span class="lang-it">Riposo, idratazione, rassicurazione</span><span class="lang-en">Rest, hydration, reassurance</span></p>
+                    <h3>Transient Fatigue</h3>
+                    <p><strong>Incidence:</strong> 5-10%<br>
+                    <strong>Duration:</strong> 12-24 hours<br>
+                    <strong>Management:</strong> Rest, hydration, reassurance</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">🤕</div>
-                    <h3><span class="lang-it">Cefalea Lieve</span><span class="lang-en">Mild Headache</span></h3>
-                    <p><strong><span class="lang-it">Incidenza:</span><span class="lang-en">Incidence:</span></strong> 4-8%<br>
-                    <strong><span class="lang-it">Causa:</span><span class="lang-en">Cause:</span></strong> <span class="lang-it">Vasodilatazione</span><span class="lang-en">Vasodilation</span><br>
-                    <strong><span class="lang-it">Gestione:</span><span class="lang-en">Management:</span></strong> <span class="lang-it">Reinfusione più lenta, idratazione</span><span class="lang-en">Slower reinfusion, hydration</span></p>
+                    <h3>Mild Headache</h3>
+                    <p><strong>Incidence:</strong> 4-8%<br>
+                    <strong>Cause:</strong> Vasodilation<br>
+                    <strong>Management:</strong> Slower reinfusion, hydration</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">💉</div>
-                    <h3><span class="lang-it">Fastidio al Sito di Iniezione</span><span class="lang-en">Injection Site Discomfort</span></h3>
-                    <p><strong><span class="lang-it">Incidenza:</span><span class="lang-en">Incidence:</span></strong> 3-5%<br>
-                    <strong><span class="lang-it">Tipo:</span><span class="lang-en">Type:</span></strong> <span class="lang-it">Ecchimosi/indolenzimento minore</span><span class="lang-en">Minor bruising/tenderness</span><br>
-                    <strong><span class="lang-it">Gestione:</span><span class="lang-en">Management:</span></strong> <span class="lang-it">Cura standard della venipuntura</span><span class="lang-en">Standard venipuncture care</span></p>
+                    <h3>Injection Site Discomfort</h3>
+                    <p><strong>Incidence:</strong> 3-5%<br>
+                    <strong>Type:</strong> Minor bruising/tenderness<br>
+                    <strong>Management:</strong> Standard venipuncture care</p>
                 </div>
             </div>
 
             <div style="background: var(--bg-white); padding: 2rem; border-radius: 15px; margin: 3rem 0; box-shadow: 0 3px 15px rgba(0,0,0,0.1);">
-                <h3 style="color: var(--success); margin-bottom: 1.5rem; text-align: center;">✅ <span class="lang-it">Minimizzare gli Effetti Collaterali</span><span class="lang-en">Minimizing Side Effects</span></h3>
+                <h3 style="color: var(--success); margin-bottom: 1.5rem; text-align: center;">✅ Minimizing Side Effects</h3>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
                     <div>
-                        <strong style="color: var(--primary);">• <span class="lang-it">Inizia Basso:</span><span class="lang-en">Start Low:</span></strong>
-                        <p><span class="lang-it">Inizia con 10-20 μg/mL per le sessioni iniziali</span><span class="lang-en">Begin with 10-20 μg/mL for initial sessions</span></p>
+                        <strong style="color: var(--primary);">• Start Low:</strong>
+                        <p>Begin with 10-20 μg/mL for initial sessions</p>
                     </div>
                     <div>
-                        <strong style="color: var(--primary);">• <span class="lang-it">Idrata:</span><span class="lang-en">Hydrate:</span></strong>
-                        <p><span class="lang-it">2-3 bicchieri d'acqua prima del trattamento</span><span class="lang-en">2-3 glasses water before treatment</span></p>
+                        <strong style="color: var(--primary);">• Hydrate:</strong>
+                        <p>2-3 glasses water before treatment</p>
                     </div>
                     <div>
-                        <strong style="color: var(--primary);">• <span class="lang-it">Reinfusione Lenta:</span><span class="lang-en">Slow Reinfusion:</span></strong>
-                        <p><span class="lang-it">Velocità massima 1 goccia/secondo</span><span class="lang-en">1 drop/second maximum rate</span></p>
+                        <strong style="color: var(--primary);">• Slow Reinfusion:</strong>
+                        <p>1 drop/second maximum rate</p>
                     </div>
                     <div>
-                        <strong style="color: var(--primary);">• <span class="lang-it">Pasto Leggero:</span><span class="lang-en">Light Meal:</span></strong>
-                        <p><span class="lang-it">Mangia 1-2 ore prima (evita il digiuno)</span><span class="lang-en">Eat 1-2 hours before (avoid fasting)</span></p>
+                        <strong style="color: var(--primary);">• Light Meal:</strong>
+                        <p>Eat 1-2 hours before (avoid fasting)</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Comments Section -->
-    <section id="comments">
+    <!-- Interactive Flowchart Section -->
+    <section id="flowchart" style="background: var(--bg-light);">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Feedback Clinico</span><span class="lang-en">Clinical Feedback</span></h2>
+            <h2 class="section-title">Treatment Decision Flowchart</h2>
+            <p class="section-subtitle">Interactive guide for patient selection and protocol optimization</p>
             
-            <div class="comments-section">
-                <h3 style="margin-bottom: 1.5rem;"><span class="lang-it">Lascia un commento</span><span class="lang-en">Leave a Comment</span></h3>
-                <form class="comment-form" onsubmit="addComment(event)">
-                    <input type="text" id="comment-name" placeholder="Nome / Name" required>
-                    <input type="email" id="comment-email" placeholder="Email (opzionale / optional)">
-                    <textarea id="comment-text" placeholder="Il tuo feedback clinico... / Your clinical feedback..." required></textarea>
-                    <button type="submit" class="btn btn-primary"><span class="lang-it">Invia Commento</span><span class="lang-en">Submit Comment</span></button>
-                </form>
+            <div style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin: 3rem 0;">
+                <div id="flowchart-container" style="max-width: 100%; overflow-x: auto;">
+                    <!-- SVG Flowchart will be rendered here -->
+                </div>
+            </div>
 
-                <div id="comments-list">
-                    <div class="comment-item">
-                        <span class="comment-author">Dr. Marco Rossi</span>
-                        <span class="comment-date">15/11/2025</span>
-                        <p class="lang-it">Protocollo molto dettagliato. Ho iniziato ad applicarlo con risultati promettenti nei miei pazienti FM.</p>
-                        <p class="lang-en">Very detailed protocol. I started applying it with promising results in my FM patients.</p>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn btn-primary" onclick="resetFlowchart()">Reset Flowchart</button>
+                <button class="btn btn-secondary" onclick="exportFlowchart()">Export as PDF</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical Evidence -->
+    <section id="evidence">
+        <div class="container">
+            <h2 class="section-title">Clinical Evidence</h2>
+            <p class="section-subtitle">Published studies demonstrating efficacy and safety</p>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Hidalgo-Tallón et al. 2013</h3>
+                    <p><strong>Design:</strong> Prospective case series (n=24)<br>
+                    <strong>Protocol:</strong> 20 sessions/10 weeks, 40 μg/mL<br>
+                    <strong>Results:</strong> 41% pain reduction, 31% FIQ improvement<br>
+                    <strong>Follow-up:</strong> Benefits sustained at 6 months</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Tirelli et al. 2019-2022</h3>
+                    <p><strong>Design:</strong> Case series (65→200 patients)<br>
+                    <strong>Results:</strong> Significant pain reduction (10-PI-NRS)<br>
+                    <strong>Safety:</strong> Adverse effects &lt;5%<br>
+                    <strong>Conclusion:</strong> Excellent real-world tolerability</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Eldemrdash et al. 2024</h3>
+                    <p><strong>Design:</strong> Prospective RCT<br>
+                    <strong>Population:</strong> Chronic MSK pain + mitochondrial dysfunction<br>
+                    <strong>Results:</strong> Significant clinical improvements<br>
+                    <strong>Relevance:</strong> Validates oxidative stress mechanism</p>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem; border-radius: 20px; margin: 3rem 0; text-align: center;">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">Biomarker Validation</h3>
+                <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">Objective molecular evidence supporting clinical improvements</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↓20-40%</div>
+                        <p>MDA (oxidative damage)</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↑20-40%</div>
+                        <p>TAC (antioxidant capacity)</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↓30-50%</div>
+                        <p>hsCRP (inflammation)</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↑15-50%</div>
+                        <p>SOD activity</p>
                     </div>
                 </div>
             </div>
@@ -1582,52 +1247,85 @@
     <!-- Resources -->
     <section id="resources">
         <div class="container">
-            <h2 class="section-title"><span class="lang-it">Risorse e Download</span><span class="lang-en">Resources & Downloads</span></h2>
-            
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon">📄</div>
-                    <h3><span class="lang-it">Scarica PDF</span><span class="lang-en">Download PDF</span></h3>
-                    <p><span class="lang-it">Scarica l'intero manuale in formato PDF per consultazione offline.</span><span class="lang-en">Download the complete manual in PDF format for offline consultation.</span></p>
-                    <button onclick="downloadPDF()" class="btn btn-primary" style="margin-top: 1rem;"><span class="lang-it">Scarica</span><span class="lang-en">Download</span></button>
+            <h2 class="section-title">Resources & Downloads</h2>
+            <p class="section-subtitle">Access comprehensive materials for clinicians and patients</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div class="card-icon">📘</div>
+                    <h3>Full Consensus Manual</h3>
+                    <p>Complete 12,000+ word comprehensive manual with all protocols, mechanisms, and guidelines</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Download PDF</button>
                 </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                    <div class="card-icon">📋</div>
+                    <h3>Quick Reference Guide</h3>
+                    <p>Condensed protocol summary with checklists for clinical practice</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Download PDF</button>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                    <div class="card-icon">👥</div>
+                    <h3>Patient Education Handout</h3>
+                    <p>Patient-friendly guide explaining treatment, expectations, and dietary recommendations</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Download PDF</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>International Organizations</h3>
+                    <ul style="line-height: 2; margin-top: 1rem; list-style: none;">
+                        <li>🌐 <a href="#" style="color: var(--primary);">ISCO3 - International Scientific Committee</a></li>
+                        <li>🌐 <a href="#" style="color: var(--primary);">SIOOT - Italian Society O2-O3 Therapy</a></li>
+                        <li>🌐 <a href="#" style="color: var(--primary);">Madrid Declaration on Ozone Therapy</a></li>
+                    </ul>
+                </div>
+
                 <div class="card">
                     <div class="card-icon">📚</div>
-                    <h3><span class="lang-it">Manuale Originale</span><span class="lang-en">Original Manual</span></h3>
-                    <p><span class="lang-it">Accedi al documento di consenso originale completo.</span><span class="lang-en">Access the complete original consensus document.</span></p>
-                    <button onclick="downloadOriginalManual()" class="btn btn-primary" style="margin-top: 1rem;"><span class="lang-it">Scarica</span><span class="lang-en">Download</span></button>
+                    <h3>Key References</h3>
+                    <ul style="line-height: 2; margin-top: 1rem; list-style: none; font-size: 0.9rem;">
+                        <li>• Hidalgo-Tallón et al. 2013 (Rev Soc Esp Dolor)</li>
+                        <li>• Tirelli et al. 2022 (Eur Rev Med Pharmacol Sci)</li>
+                        <li>• Petrikonis et al. 2024 (Pharmaceutics)</li>
+                        <li>• Cordero et al. 2013 (CoQ10 in FM)</li>
+                    </ul>
                 </div>
+
                 <div class="card">
-                    <div class="card-icon">🔬</div>
-                    <h3><span class="lang-it">Riferimenti Scientifici</span><span class="lang-en">Scientific References</span></h3>
-                    <p><span class="lang-it">Bibliografia completa e studi clinici citati.</span><span class="lang-en">Complete bibliography and cited clinical studies.</span></p>
-                    <a href="#evidence" class="btn btn-primary" style="margin-top: 1rem;"><span class="lang-it">Visualizza</span><span class="lang-en">View</span></a>
+                    <div class="card-icon">📧</div>
+                    <h3>Contact & Support</h3>
+                    <p style="margin-top: 1rem;">
+                        <strong>Corresponding Author:</strong><br>
+                        Roberto Casale, MD<br>
+                        Opusmedica, Piacenza, Italy<br>
+                        📧 roberto.casale@opusmedica.it
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Clinical Evidence (completing the section) -->
-    <section id="evidence">
-        <div class="container">
-            <h2 class="section-title"><span class="lang-it">Evidenza Clinica</span><span class="lang-en">Clinical Evidence</span></h2>
-            <p class="section-subtitle"><span class="lang-it">Studi pubblicati che dimostrano efficacia e sicurezza</span><span class="lang-en">Published studies demonstrating efficacy and safety</span></p>
-
-            <div class="cards">
-                <div class="card">
-                    <div class="card-icon">📊</div>
-                    <h3><span class="lang-it">Studi Clinici</span><span class="lang-en">Clinical Trials</span></h3>
-                    <p><span class="lang-it">Oltre 15 studi clinici hanno dimostrato l'efficacia dell'O₂-O₃-AHT nella fibromialgia con profili di sicurezza eccellenti.</span><span class="lang-en">Over 15 clinical trials have demonstrated O₂-O₃-AHT efficacy in fibromyalgia with excellent safety profiles.</span></p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📈</div>
-                    <h3><span class="lang-it">Miglioramenti dei Biomarcatori</span><span class="lang-en">Biomarker Improvements</span></h3>
-                    <p><span class="lang-it">Riduzioni consistenti di MDA, AOPP, hsCRP e aumenti di TAC, GSH documentati in molteplici studi.</span><span class="lang-en">Consistent reductions in MDA, AOPP, hsCRP and increases in TAC, GSH documented across multiple studies.</span></p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">✅</div>
-                    <h3><span class="lang-it">Risultati a Lungo Termine</span><span class="lang-en">Long-term Outcomes</span></h3>
-                    <p><span class="lang-it">Studi di follow-up mostrano benefici sostenuti fino a 12 mesi con la terapia di mantenimento.</span><span class="lang-en">Follow-up studies show sustained benefits up to 12 months with maintenance therapy.</span></p>
+            <div style="background: var(--bg-light); padding: 3rem; border-radius: 20px; margin: 3rem 0; text-align: center;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">Research Priorities</h3>
+                <p style="max-width: 800px; margin: 0 auto 2rem; line-height: 1.8;">
+                    While preliminary evidence is promising, adequately powered double-blind, sham-controlled RCTs are urgently needed to definitively establish efficacy, optimize protocols, identify predictive biomarkers, and validate mechanistic hypotheses.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Nrf2 nuclear translocation studies
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Peripheral nerve regeneration trials
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Neuroimaging studies
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Long-term safety registries
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Cost-effectiveness analyses
+                    </span>
                 </div>
             </div>
         </div>
@@ -1636,72 +1334,85 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <h3>O₂-O₃-AHT <span class="lang-it">per Fibromialgia</span><span class="lang-en">for Fibromyalgia</span></h3>
-            <p><span class="lang-it">Manuale di consenso per il trattamento basato sull'evidenza</span><span class="lang-en">Consensus Manual for Evidence-Based Treatment</span></p>
+            <h3>A Consensus Manual for the Use of O₂-O₃-AHT in Fibromyalgia</h3>
+            <p style="margin: 1rem 0; opacity: 0.8;">
+                Edited by Roberto Casale & Piercarlo Sarzi-Puttini<br>
+                Opusmedica, Persons Care & Research, Piacenza, Italy
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; align-items: center;">
+                <a href="https://www.opusmedica.org" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem;">
+                    🏥 <span>Opusmedica.org</span>
+                </a>
+                <a href="https://www.instagram.com/opus_medica" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem;">
+                    📸 <span>@opus_medica</span>
+                </a>
+                <a href="https://youtu.be/5hH_tDWM0fE" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem;">
+                    ▶️ <span>Video Tutorial</span>
+                </a>
+            </div>
             
             <div class="footer-links">
-                <a href="#intro"><span class="lang-it">Introduzione</span><span class="lang-en">Introduction</span></a>
-                <a href="#protocol"><span class="lang-it">Protocollo</span><span class="lang-en">Protocol</span></a>
-                <a href="#safety"><span class="lang-it">Sicurezza</span><span class="lang-en">Safety</span></a>
-                <a href="#resources"><span class="lang-it">Risorse</span><span class="lang-en">Resources</span></a>
-                <a href="#glossary"><span class="lang-it">Glossario</span><span class="lang-en">Glossary</span></a>
+                <a href="#intro">Introduction</a>
+                <a href="#pathophysiology">Pathophysiology</a>
+                <a href="#mechanism">Mechanism</a>
+                <a href="#protocol">Protocol</a>
+                <a href="#safety">Safety</a>
+                <a href="#flowchart">Flowchart</a>
+                <a href="#resources">Resources</a>
             </div>
 
-            <div class="footer-credits">
-                <p><strong><span class="lang-it">Sito creato da</span><span class="lang-en">Website created by</span></strong></p>
-                <p style="font-size: 1.1rem; margin-top: 0.5rem;">2M Digital Consulting srls</p>
-                <p style="margin-top: 1rem; opacity: 0.7;">&copy; 2025 <span class="lang-it">Tutti i diritti riservati</span><span class="lang-en">All rights reserved</span></p>
-            </div>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.6;">
+                © 2025 Opusmedica NPO & Foundation Ermete, Milan, Italy. All rights reserved.<br>
+                This manual represents current evidence and expert consensus. Protocols should be adapted based on individual patient characteristics and clinical judgment.
+            </p>
+
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.5;">
+                Website created for educational purposes. Not a substitute for professional medical advice.<br>
+                Website developed by <strong>2M Digital Consulting srls</strong>
+            </p>
         </div>
     </footer>
 
     <script>
-        // Language Toggle
-        let currentLang = 'it';
-        
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.setAttribute('lang', lang);
-            localStorage.setItem('preferredLanguage', lang);
-        }
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
 
-        document.getElementById('lang-toggle').addEventListener('click', function() {
-            const newLang = currentLang === 'it' ? 'en' : 'it';
-            setLanguage(newLang);
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
 
-        // Load saved language preference
-        const savedLang = localStorage.getItem('preferredLanguage') || 'it';
-        setLanguage(savedLang);
-
-        // Theme Toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-
-        themeToggle.addEventListener('click', function() {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                }
+            });
         });
 
-        // Mobile Menu Toggle
-        document.getElementById('mobileMenu').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('active');
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Accordion
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const item = this.parentElement;
+        // Accordion functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
                 const wasActive = item.classList.contains('active');
                 
                 // Close all accordion items
@@ -1716,102 +1427,14 @@
             });
         });
 
-        // Scroll Progress Bar
-        window.addEventListener('scroll', function() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-        });
+        // Interactive Flowchart
+        function createFlowchart() {
+            const container = document.getElementById('flowchart-container');
+            if (!container) return;
 
-        // Search Functionality
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.getElementById('search-results');
-
-        searchInput.addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            
-            if (query.length < 3) {
-                searchResults.style.display = 'none';
-                return;
-            }
-
-            const allText = document.body.innerText.toLowerCase();
-            const sections = document.querySelectorAll('section');
-            let results = [];
-
-            sections.forEach(section => {
-                const sectionText = section.innerText.toLowerCase();
-                if (sectionText.includes(query)) {
-                    const title = section.querySelector('h2')?.innerText || 'Section';
-                    const id = section.id || '';
-                    results.push({ title, id });
-                }
-            });
-
-            if (results.length > 0) {
-                searchResults.innerHTML = results.map(r => 
-                    `<div class="search-result-item" onclick="location.href='#${r.id}'">${r.title}</div>`
-                ).join('');
-                searchResults.style.display = 'block';
-            } else {
-                searchResults.innerHTML = '<div class="search-result-item">Nessun risultato / No results</div>';
-                searchResults.style.display = 'block';
-            }
-        });
-
-        // Quiz Answer Check
-        function checkAnswer(element, isCorrect) {
-            const options = element.parentElement.querySelectorAll('.quiz-option');
-            options.forEach(opt => {
-                opt.classList.remove('correct', 'incorrect');
-                opt.style.pointerEvents = 'none';
-            });
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-            } else {
-                element.classList.add('incorrect');
-                options.forEach(opt => {
-                    if (opt.querySelector('input').nextSibling.textContent.includes('40') ||
-                        opt.querySelector('input').nextSibling.textContent.includes('G6PD') ||
-                        opt.querySelector('input').nextSibling.textContent.includes('8-18')) {
-                        opt.classList.add('correct');
-                    }
-                });
-            }
-        }
-
-        // Comments System
-        function addComment(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('comment-name').value;
-            const email = document.getElementById('comment-email').value;
-            const text = document.getElementById('comment-text').value;
-            const date = new Date().toLocaleDateString('it-IT');
-
-            const commentHTML = `
-                <div class="comment-item">
-                    <span class="comment-author">${name}</span>
-                    <span class="comment-date">${date}</span>
-                    <p>${text}</p>
-                </div>
-            `;
-
-            document.getElementById('comments-list').insertAdjacentHTML('afterbegin', commentHTML);
-            
-            // Reset form
-            event
-
-Fonti
-[1] Generating PDFs from HTML with jsPDF and javascript https://pdforge.com/blog/generating-pdfs-from-html-with-jspdf
-[2] Generate pdf from HTML in div using Javascript https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript
-[3] Generate PDF File Using jsPDF Library https://www.geeksforgeeks.org/html/how-to-generate-pdf-file-using-jspdf-library/
-[4] parallax/jsPDF: Client-side JavaScript PDF generation for ... https://github.com/parallax/jsPDF
-[5] HTML to PDF in Javascript using jsPDF with Example ... https://phppot.com/javascript/html-to-pdf-in-javascript-using-jspdf/
-[6] Incredible INTERACTIVE FLOWCHARTS with CHATGPT https://www.youtube.com/watch?v=shUK8OE_QeY
-[7] How To Toggle Between Dark and Light Mode https://www.w3schools.com/howto/howto_js_toggle_dark_mode.asp
-[8] JsPDF: What Is It & How To Use It To Generate PDF from ... https://decentro.tech/blog/jspdf/
-[9] How to Create a JavaScript Flow Chart https://blog.balkan.app/how-to-create-a-javascript-flow-chart
-[10] How to Build a Dark Mode Toggle with CSS and JavaScript https://blog.openreplay.com/build-dark-mode-toggle-css-js/
+            const flowchartHTML = `
+                <svg viewBox="0 0 800 1200" style="width: 100%; height: auto; max-width: 800px; margin: 0 auto; display: block;">
+                    <!-- Patient Presentation -->
+                    <rect x="250" y="20" width="300" height="80" rx="10" fill="#2c5f7c" />
+                    <text x="400" y="50" text-anchor="middle" fill="white" font-size="16" font-weight="bold">
+                        <tspan x="400" dy="0">FM Patient Presentation</tspan>
