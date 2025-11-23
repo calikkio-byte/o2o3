@@ -1,251 +1,1430 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manuale Consensus O2-O3-AHT - Fibromialgia</title>
-  <style>
-    :root {
-      --primary: #2c5f7c;
-      --secondary: #4a9eba;
-      --accent: #e74c3c;
-      --bg-light: #f8f9fa;
-      --bg-dark: #23272f;
-      --text-dark: #222;
-      --text-light: #f6f6f6;
-    }
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0;
-      background: var(--bg-light);
-      color: var(--text-dark);
-      transition: background 0.3s, color 0.3s;
-      min-height: 100vh;
-    }
-    header {
-      padding: 1.35rem 1rem 1rem 1rem;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: var(--text-light);
-      display: flex; justify-content: space-between; align-items: center;
-      position: sticky; top: 0; z-index: 10;
-    }
-    header .controls {
-      display: flex; gap: 1rem; align-items: center;
-    }
-    main {
-      max-width: 900px; margin: 2rem auto; padding: 1.5rem;
-      background: var(--bg-light); border-radius: 10px; box-shadow: 0 2px 16px #0001;
-    }
-    /* Search */
-    #searchBar { width: 300px; padding: 0.4rem; border-radius: 4px; border: 1px solid #c0c0c0; }
-    /* Dark mode  */
-    body.dark {
-      background: var(--bg-dark);
-      color: var(--text-light);
-    }
-    body.dark main { background: #282c36; box-shadow: 0 2px 16px #0004; }
-    body.dark a { color: #9cf; }
-    /* Quiz */
-    .quiz-container { margin:2rem 0; padding:1rem; background:#d9edfa; border-radius:6px; }
-    .quiz-question { font-weight:500; margin-top:1rem; }
-    .quiz-feedback { margin:0.5rem 0; }
-    .quiz-success { color: var(--primary); }
-    .quiz-wrong { color:var(--accent);}
-    /* Video */
-    .video-embed { margin: 1.5rem 0; display: flex; justify-content: center; }
-    .video-embed iframe { width: 560px; height: 315px; max-width: 100%; border-radius:8px; }
-    /* Comments */
-    .comments-section { margin: 2rem 0; border-top: 1px solid #eee; padding-top: 1rem;}
-    .comments-list { margin:1rem 0; }
-    .comment { margin-bottom:0.75rem; background: #f1f7fb; border-radius:4px; padding:0.5rem;}
-    .comment .date { font-size:0.9em; color:#888;}
-    /* Flowchart */
-    #flowchart {background:#fff; padding:1rem; margin:1.5rem 0;border-radius:8px;}
-    /* Print Styles */
-    @media print {
-      header, .controls, #searchBar, .comments-section,
-      .quiz-container, #themeBtn, #languageSwitcher, #downloadPdfBtn, #downloadOriginalBtn { display: none !important; }
-      main { box-shadow: none; background: #fff !important; color: #000; }
-      #flowchart {background:#fff!important;}
-    }
-    /* Footer */
-    footer {
-      margin-top:2rem; padding: 1rem;
-      background: var(--primary);
-      color: var(--text-light);
-      text-align:center;
-      font-size:1rem;
-      border-radius:0 0 10px 10px;
-    }
-  </style>
-  <!-- jsPDF CDN for PDF export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- Mermaid CDN for flowcharts -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O2-O3-AHT for Fibromyalgia | Consensus Manual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5f7c;
+            --secondary: #4a9eba;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        nav .logo {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: var(--warning);
+        }
+
+        .mobile-menu {
+            display: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-light);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .authors {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 50%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 50%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border: 4px solid var(--bg-white);
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .phase {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-box {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            display: block;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Accordion */
+        .accordion {
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+
+        .accordion-item {
+            background: var(--bg-white);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: var(--secondary);
+        }
+
+        .accordion-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            padding: 1.5rem;
+        }
+
+        /* Protocol Visual */
+        .protocol-visual {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .protocol-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .protocol-step {
+            text-align: center;
+        }
+
+        .protocol-step-number {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        /* Safety Alert */
+        .safety-alert {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            border-left: 5px solid #c0392b;
+        }
+
+        .safety-alert h3 {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .safety-alert-icon {
+            font-size: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer h3 {
+            margin-bottom: 1rem;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--warning);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s;
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 999;
+            transition: width 0.1s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            nav ul.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 80px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item::after {
+                left: 30px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Table styles */
+        .responsive-table {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background: var(--bg-light);
+        }
+
+        /* Biomarker visualization */
+        .biomarker-viz {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .biomarker-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .biomarker-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .progress-meter {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            transition: width 1s ease;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div><b>Manuale O2-O3-AHT</b></div>
-    <div class="controls">
-      <input id="searchBar" type="text" placeholder="Cerca nel manuale..." oninput="filterManual()"/>
-      <select id="languageSwitcher" onchange="switchLang()">
-        <option value="it">Italiano</option>
-        <option value="en">English</option>
-      </select>
-      <button id="themeBtn" onclick="toggleTheme()">🌗</button>
-      <button id="downloadPdfBtn" onclick="downloadPDF()">Scarica PDF</button>
-      <button id="downloadOriginalBtn" onclick="downloadOriginal()">Scarica Manuale Originale</button>
-    </div>
-  </header>
-  <main id="manual">
-    <section id="manualContent">
-    <h1 lang="it" class="only-it">Manuale Consensus O2-O3-AHT per Fibromialgia</h1>
-    <h1 lang="en" class="only-en" style="display:none;">O2-O3-AHT Consensus Manual for Fibromyalgia</h1>
-    <p lang="it" class="only-it">Manuale completo aggiornato alle ultime linee guida per la gestione della fibromialgia tramite Ossigeno Ozono Autoemoterapia...</p>
-    <p lang="en" class="only-en" style="display:none;">Comprehensive updated manual on oxygen-ozone autohemotherapy for managing fibromyalgia...</p>
-    <!-- Inserire qui il contenuto dettagliato in italiano/inglese -->
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">🫁 O₂-O₃-AHT Manual</a>
+            <ul id="navMenu">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#pathophysiology">Pathophysiology</a></li>
+                <li><a href="#mechanism">Mechanism</a></li>
+                <li><a href="#protocol">Protocol</a></li>
+                <li><a href="#safety">Safety</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">☰</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Oxygen-Ozone Autohemotherapy for Fibromyalgia</h1>
+            <p>A Comprehensive Consensus Manual on Mechanism, Protocol, and Biomarker-Guided Therapy</p>
+            <p class="authors">Edited by Roberto Casale, MD & Piercarlo Sarzi-Puttini, MD</p>
+            <div class="cta-buttons">
+                <a href="#protocol" class="btn btn-primary">View Protocol</a>
+                <a href="#resources" class="btn btn-secondary">Download Manual</a>
+            </div>
+        </div>
     </section>
 
-    <!-- Video tutorial embed -->
-    <div class="video-embed">
-      <iframe src="https://www.youtube.com/embed/1DZVoN6lGHM" 
-        title="Tutorial Procedurale"
-        frameborder="0" allowfullscreen></iframe>
-    </div>
+    <!-- Introduction -->
+    <section id="intro">
+        <div class="container">
+            <h2 class="section-title">Understanding Fibromyalgia</h2>
+            <p class="section-subtitle">A complex chronic pain disorder affecting 2-4% of the global population</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-number">2-4%</span>
+                    <span class="stat-label">Global Prevalence</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">7:1</span>
+                    <span class="stat-label">Female:Male Ratio</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">50%</span>
+                    <span class="stat-label">With Small Fiber Pathology</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">&lt;50%</span>
+                    <span class="stat-label">Response to Current Meds</span>
+                </div>
+            </div>
 
-    <!-- Flowchart interattivo -->
-    <div id="flowchart">
-      <pre class="mermaid" id="mermaidFlow">
-        graph TD
-        A[Valutazione Clinica] --> B{Criteri Diagnostici}
-        B -->|Soddisfatti| C[Inizio O2-O3 AHT]
-        B -->|Non Soddisfatti| D[Valutare diagnosi differenziale]
-        C --> E[Monitoraggio Biomarker]
-        D --> E
-        E --> F{Risposta positiva?}
-        F -->|Sì| G[Terapia di mantenimento]
-        F -->|No| H[Adattare protocollo]
-      </pre>
-    </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Diagnostic Evolution</h3>
+                    <p>From 1990 ACR tender points to 2016 criteria focusing on widespread pain index (WPI) and symptom severity scale (SSS), now classified under ICD-11 chronic primary pain.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧬</div>
+                    <h3>Oxidative Stress</h3>
+                    <p>Elevated MDA, AOPP, and reduced antioxidant capacity (TAC, GSH, SOD, GPx) indicate profound cellular redox imbalance as a core pathophysiological mechanism.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Mitochondrial Dysfunction</h3>
+                    <p>Impaired Complex I activity, reduced ATP synthesis, and cellular energy deficits contribute to fatigue and exercise intolerance characteristic of FM.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Quiz interattivo -->
-    <div class="quiz-container" id="quizSection">
-      <div><b>Quiz di comprensione</b> / <b lang="en" style="display:none;">Comprehension Quiz</b></div>
-      <div class="quiz-question" id="quizQn"></div>
-      <div id="quizOptions"></div>
-      <div class="quiz-feedback" id="quizFeedback"></div>
-      <button onclick="nextQuiz()" id="nextQuizBtn">Domanda successiva</button>
-    </div>
+    <!-- Pathophysiology -->
+    <section id="pathophysiology">
+        <div class="container">
+            <h2 class="section-title">Pathophysiology & Small Fiber Pathology</h2>
+            <p class="section-subtitle">Multiple interconnected mechanisms underlying FM symptoms</p>
 
-    <!-- Comments Section -->
-    <div class="comments-section">
-      <h3 lang="it" class="only-it">Lascia un feedback clinico</h3>
-      <h3 lang="en" class="only-en" style="display:none;">Leave clinical feedback</h3>
-      <textarea id="commentInput" style="width:100%;height:60px;border-radius:4px;"></textarea>
-      <br>
-      <button onclick="addComment()">Invia / Send</button>
-      <div class="comments-list" id="commentsList"></div>
-    </div>
-  </main>
-  <footer>
-    Sito creato da 2M Digital Consulting srls
-  </footer>
-  <script>
-    // PDF GENERATION
-    function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      var doc = new jsPDF();
-      doc.text(document.querySelector("#manualContent").innerText, 10, 10);
-      doc.save("manuale-o2o3-fibromialgia.pdf");
-    }
-    // DOWNLOAD FILE ORIGINALE
-    function downloadOriginal() {
-      const htmlContent = document.documentElement.outerHTML;
-      const blob = new Blob([htmlContent], { type: "text/html" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "manuale-originale.html";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-    // SEARCH FUNCTIONALITY
-    function filterManual() {
-      var val = document.getElementById("searchBar").value.toLowerCase();
-      var content = document.getElementById("manualContent");
-      var html = content.innerHTML;
-      if (!val) {
-        [...content.children].forEach(el => {
-          el.style.display = '';
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Small Fiber Neuropathy</h3>
+                    <p>40-50% of FM patients show reduced intraepidermal nerve fiber density (IENFD) on skin biopsy, providing objective structural pathology.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Central Sensitization</h3>
+                    <p>Amplification of pain signals in the CNS, aberrant pain processing, and neuroinflammation with glial activation.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔥</div>
+                    <h3>Neuroinflammation</h3>
+                    <p>Elevated IL-6, TNF-α, IL-1β, and hsCRP creating pro-inflammatory microenvironment that damages nerve fibers.</p>
+                </div>
+            </div>
+
+            <div class="responsive-table" style="margin-top: 3rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biomarker</th>
+                            <th>Normal Range</th>
+                            <th>FM Typical</th>
+                            <th>Clinical Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MDA</strong></td>
+                            <td>&lt;2.0 μmol/L</td>
+                            <td>2.5-4.5 μmol/L</td>
+                            <td>Lipid peroxidation marker</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TAC</strong></td>
+                            <td>1.3-1.8 mmol/L</td>
+                            <td>0.8-1.2 mmol/L</td>
+                            <td>Total antioxidant capacity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>hsCRP</strong></td>
+                            <td>&lt;1 mg/L</td>
+                            <td>3-8 mg/L</td>
+                            <td>Systemic inflammation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GSH:GSSG</strong></td>
+                            <td>&gt;10:1</td>
+                            <td>5:1 to 8:1</td>
+                            <td>Cellular redox status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nrf2 Mechanism -->
+    <section id="mechanism">
+        <div class="container">
+            <h2 class="section-title">Nrf2 Pathway & Hormetic Mechanism</h2>
+            <p class="section-subtitle">How O₂-O₃-AHT triggers beneficial adaptive responses</p>
+
+            <div class="protocol-visual">
+                <h3>Hormetic Principle</h3>
+                <p>Low-dose oxidative stress activates Nrf2, triggering upregulation of 200+ cytoprotective genes</p>
+                <div class="protocol-steps">
+                    <div class="protocol-step">
+                        <div class="protocol-step-number">1</div>
+                        <h4>Ozone Contact</h4>
+                        <p>Generates LOPs (4-HNE, MDA)</p>
+                    </div>
+                    <div class="protocol-step">
+                        <div class="protocol-step-number">2</div>
+                        <h4>Keap1 Oxidation</h4>
+                        <p>Releases Nrf2</p>
+                    </div>
+                    <div class="protocol-step">
+                        <div class="protocol-step-number">3</div>
+                        <h4>Nuclear Translocation</h4>
+                        <p>Nrf2 enters nucleus</p>
+                    </div>
+                    <div class="protocol-step">
+                        <div class="protocol-step-number">4</div>
+                        <h4>ARE Binding</h4>
+                        <p>Activates gene transcription</p>
+                    </div>
+                    <div class="protocol-step">
+                        <div class="protocol-step-number">5</div>
+                        <h4>Enzyme Production</h4>
+                        <p>SOD, CAT, GPx, HO-1 ↑</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary);">Temporal Dynamics</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="phase">Immediate Phase</span>
+                        <h3>0-30 minutes</h3>
+                        <p>Ozone-derived LOPs (4-HNE) covalently modify Keap1 cysteine residues, disrupting Keap1-Nrf2 interaction. MAPK activation phosphorylates Nrf2, facilitating nuclear translocation.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="phase">Acute Phase</span>
+                        <h3>Minutes to 6 hours</h3>
+                        <p>Stabilized Nrf2 accumulates and translocates to nucleus, heterodimerizing with Maf proteins and binding to AREs. Transcriptional activation of Nrf2 gene battery begins.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="phase">Adaptive Phase</span>
+                        <h3>6-72 hours</h3>
+                        <p>Peak expression of antioxidant enzymes (5-10 fold increases). Maximum cellular stress resistance and anti-inflammatory capacity. Redox homeostasis restoration.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="phase">Resolution Phase</span>
+                        <h3>3-14 days</h3>
+                        <p>Nrf2 returns to baseline but cytoprotective proteins persist due to long half-lives. Enhanced stress resistance maintained, providing basis for inter-treatment intervals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="biomarker-viz">
+                <div class="biomarker-card">
+                    <h4>MDA Reduction</h4>
+                    <p>20-40% decrease</p>
+                    <div class="progress-meter">
+                        <div class="progress-meter-fill" style="width: 35%"></div>
+                    </div>
+                    <small>Indicates reduced lipid peroxidation</small>
+                </div>
+                <div class="biomarker-card">
+                    <h4>TAC Increase</h4>
+                    <p>20-40% increase</p>
+                    <div class="progress-meter">
+                        <div class="progress-meter-fill" style="width: 30%"></div>
+                    </div>
+                    <small>Enhanced antioxidant reserves</small>
+                </div>
+                <div class="biomarker-card">
+                    <h4>hsCRP Decrease</h4>
+                    <p>30-50% reduction</p>
+                    <div class="progress-meter">
+                        <div class="progress-meter-fill" style="width: 40%"></div>
+                    </div>
+                    <small>Reduced systemic inflammation</small>
+                </div>
+                <div class="biomarker-card">
+                    <h4>Pain Reduction</h4>
+                    <p>30-40% decrease</p>
+                    <div class="progress-meter">
+                        <div class="progress-meter-fill" style="width: 35%"></div>
+                    </div>
+                    <small>VAS score improvement</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protocol -->
+    <section id="protocol">
+        <div class="container">
+            <h2 class="section-title">Optimized Treatment Protocol</h2>
+            <p class="section-subtitle">Biomarker-guided, person-tailored approach</p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Pre-Treatment Assessment</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;">Patient Phenotyping:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li>High oxidative stress (MDA >2.5 μmol/L)</li>
+                            <li>Inflammatory phenotype (hsCRP >3 mg/L)</li>
+                            <li>Mitochondrial dysfunction (fatigue, exercise intolerance)</li>
+                            <li>Small fiber pathology (burning pain, dysesthesias)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Intensive Phase (4-6 weeks)</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <h4 style="color: var(--success); margin: 1rem 0;">Core Parameters:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>Frequency:</strong> 2-3 sessions/week (spaced 2-4 days apart)</li>
+                            <li><strong>Duration:</strong> 4-6 weeks total</li>
+                            <li><strong>Total sessions:</strong> 8-18 (based on severity)</li>
+                            <li><strong>Blood volume:</strong> 100-150 mL (adjust for patient size)</li>
+                            <li><strong>Reinfusion rate:</strong> 1 drop/second, max 90 drops/minute</li>
+                        </ul>
+                        <h4 style="color: var(--success); margin: 1.5rem 0 1rem;">Ozone Concentration (Progressive Escalation):</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>Initial sessions (1-3):</strong> 10-20 μg/mL</li>
+                            <li><strong>Middle sessions (4-8):</strong> 20-30 μg/mL</li>
+                            <li><strong>Later sessions (9-15):</strong> 30-40 μg/mL</li>
+                            <li><strong>Maximum:</strong> 40 μg/mL (hormetic zone ceiling)</li>
+                        </ul>
+                        <h4 style="color: var(--success); margin: 1.5rem 0 1rem;">Interim Assessments:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>Week 2-3:</strong> Pain/function, tolerance check</li>
+                            <li><strong>Week 4-5:</strong> Comprehensive reassessment + PGIC</li>
+                            <li><strong>Week 6:</strong> Full outcome + biomarker repeat</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Maintenance Phase (6-12+ months)</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <h4 style="color: var(--warning); margin: 1rem 0;">Frequency Options:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>Fixed schedule:</strong> Monthly (every 3-4 weeks) for first 6 months</li>
+                            <li><strong>Symptom-triggered:</strong> When pain increases ≥20-30% for ≥1 week</li>
+                            <li><strong>Biomarker-guided:</strong> When MDA rises >20% or TAC declines >15%</li>
+                        </ul>
+                        <h4 style="color: var(--warning); margin: 1.5rem 0 1rem;">Response Criteria to Proceed:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li>Pain reduction ≥30% OR VAS decrease ≥2 points</li>
+                            <li>FIQ reduction ≥20% OR decrease ≥15 points</li>
+                            <li>PGIC: "much improved" or "very much improved"</li>
+                            <li>Favorable biomarker changes (↓MDA, ↑TAC, ↓hsCRP)</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                            <strong>Duration:</strong> Typically 6-12 months; some patients require extended maintenance (12-24 months) or long-term low-frequency therapy (every 2-3 months).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Nutritional & Adjunctive Therapies</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <h4 style="color: var(--primary); margin: 1rem 0;">Mediterranean Diet:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li>Fruits & vegetables: 5-9 servings daily</li>
+                            <li>Fish: 2-3 servings per week</li>
+                            <li>Olive oil: 3-4 tablespoons daily</li>
+                            <li>Nuts: ~30 grams daily</li>
+                            <li>Red meat: Limited to ≤1 serving weekly</li>
+                        </ul>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">Supplements:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>Coenzyme Q10:</strong> 200-300 mg daily (ubiquinol form) ✅</li>
+                            <li><strong>Hydration:</strong> 2-3 liters water daily ✅</li>
+                            <li><strong>Avoid during intensive phase:</strong> High-dose Vit C (>1000mg), Vit E (>400 IU), glutathione 24-48h before/after sessions ⚠️</li>
+                        </ul>
+                        <h4 style="color: var(--primary); margin: 1.5rem 0 1rem;">Non-Pharmacological:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li>Exercise: Aerobic 2-3x/week, aquatic therapy</li>
+                            <li>CBT or ACT for pain catastrophizing</li>
+                            <li>Sleep hygiene optimization</li>
+                            <li>Patient education on self-management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety -->
+    <section id="safety">
+        <div class="container">
+            <h2 class="section-title">Safety & Contraindications</h2>
+            <p class="section-subtitle">Ensuring patient safety through proper screening and monitoring</p>
+
+            <div class="safety-alert">
+                <h3>
+                    <span class="safety-alert-icon">⚠️</span>
+                    CRITICAL: Mandatory G6PD Screening
+                </h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    Glucose-6-phosphate dehydrogenase (G6PD) deficiency is an ABSOLUTE CONTRAINDICATION to ozone therapy. This genetic condition affects ~400 million people globally with highest prevalence in Mediterranean, African, Asian, and Middle Eastern populations. G6PD screening MUST be performed before any treatment—deficiency can cause life-threatening hemolytic crisis.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0;">
+                <div style="background: #ffe6e6; padding: 2rem; border-radius: 15px; border-left: 5px solid var(--accent);">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">🛑 Absolute Contraindications</h3>
+                    <ul style="line-height: 2;">
+                        <li><strong>G6PD deficiency / Favism</strong></li>
+                        <li>Acute hemolytic anemia</li>
+                        <li>Active bleeding / coagulopathies</li>
+                        <li>Severe thrombocytopenia (&lt;50k/μL)</li>
+                        <li>Active hyperthyroidism</li>
+                        <li>Pregnancy</li>
+                        <li>Recent MI (&lt;3 months)</li>
+                        <li>Patent foramen ovale</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff4e6; padding: 2rem; border-radius: 15px; border-left: 5px solid var(--warning);">
+                    <h3 style="color: var(--warning); margin-bottom: 1rem;">⚡ Relative Contraindications</h3>
+                    <ul style="line-height: 2;">
+                        <li>Uncontrolled hypertension (BP &gt;180/110)</li>
+                        <li>Active anticoagulation therapy</li>
+                        <li>Significant anemia (Hb &lt;10 g/dL)</li>
+                        <li>Active malignancy (consult oncologist)</li>
+                        <li>Neurodegenerative disorders (consult neurologist)</li>
+                        <li>Seizure disorder (theoretical concern)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary);">Common Side Effects (5-15% incidence)</h3>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">😴</div>
+                    <h3>Transient Fatigue</h3>
+                    <p><strong>Incidence:</strong> 5-10%<br>
+                    <strong>Duration:</strong> 12-24 hours<br>
+                    <strong>Management:</strong> Rest, hydration, reassurance</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤕</div>
+                    <h3>Mild Headache</h3>
+                    <p><strong>Incidence:</strong> 4-8%<br>
+                    <strong>Cause:</strong> Vasodilation<br>
+                    <strong>Management:</strong> Slower reinfusion, hydration</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💉</div>
+                    <h3>Injection Site Discomfort</h3>
+                    <p><strong>Incidence:</strong> 3-5%<br>
+                    <strong>Type:</strong> Minor bruising/tenderness<br>
+                    <strong>Management:</strong> Standard venipuncture care</p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-white); padding: 2rem; border-radius: 15px; margin: 3rem 0; box-shadow: 0 3px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: var(--success); margin-bottom: 1.5rem; text-align: center;">✅ Minimizing Side Effects</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <strong style="color: var(--primary);">• Start Low:</strong>
+                        <p>Begin with 10-20 μg/mL for initial sessions</p>
+                    </div>
+                    <div>
+                        <strong style="color: var(--primary);">• Hydrate:</strong>
+                        <p>2-3 glasses water before treatment</p>
+                    </div>
+                    <div>
+                        <strong style="color: var(--primary);">• Slow Reinfusion:</strong>
+                        <p>1 drop/second maximum rate</p>
+                    </div>
+                    <div>
+                        <strong style="color: var(--primary);">• Light Meal:</strong>
+                        <p>Eat 1-2 hours before (avoid fasting)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical Evidence -->
+    <section id="evidence">
+        <div class="container">
+            <h2 class="section-title">Clinical Evidence</h2>
+            <p class="section-subtitle">Published studies demonstrating efficacy and safety</p>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Hidalgo-Tallón et al. 2013</h3>
+                    <p><strong>Design:</strong> Prospective case series (n=24)<br>
+                    <strong>Protocol:</strong> 20 sessions/10 weeks, 40 μg/mL<br>
+                    <strong>Results:</strong> 41% pain reduction, 31% FIQ improvement<br>
+                    <strong>Follow-up:</strong> Benefits sustained at 6 months</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Tirelli et al. 2019-2022</h3>
+                    <p><strong>Design:</strong> Case series (65→200 patients)<br>
+                    <strong>Results:</strong> Significant pain reduction (10-PI-NRS)<br>
+                    <strong>Safety:</strong> Adverse effects &lt;5%<br>
+                    <strong>Conclusion:</strong> Excellent real-world tolerability</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Eldemrdash et al. 2024</h3>
+                    <p><strong>Design:</strong> Prospective RCT<br>
+                    <strong>Population:</strong> Chronic MSK pain + mitochondrial dysfunction<br>
+                    <strong>Results:</strong> Significant clinical improvements<br>
+                    <strong>Relevance:</strong> Validates oxidative stress mechanism</p>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem; border-radius: 20px; margin: 3rem 0; text-align: center;">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">Biomarker Validation</h3>
+                <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">Objective molecular evidence supporting clinical improvements</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↓20-40%</div>
+                        <p>MDA (oxidative damage)</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↑20-40%</div>
+                        <p>TAC (antioxidant capacity)</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↓30-50%</div>
+                        <p>hsCRP (inflammation)</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold;">↑15-50%</div>
+                        <p>SOD activity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section id="resources">
+        <div class="container">
+            <h2 class="section-title">Resources & Downloads</h2>
+            <p class="section-subtitle">Access comprehensive materials for clinicians and patients</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div class="card-icon">📘</div>
+                    <h3>Full Consensus Manual</h3>
+                    <p>Complete 12,000+ word comprehensive manual with all protocols, mechanisms, and guidelines</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Download PDF</button>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                    <div class="card-icon">📋</div>
+                    <h3>Quick Reference Guide</h3>
+                    <p>Condensed protocol summary with checklists for clinical practice</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Download PDF</button>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                    <div class="card-icon">👥</div>
+                    <h3>Patient Education Handout</h3>
+                    <p>Patient-friendly guide explaining treatment, expectations, and dietary recommendations</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">Download PDF</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>International Organizations</h3>
+                    <ul style="line-height: 2; margin-top: 1rem; list-style: none;">
+                        <li>🌐 <a href="#" style="color: var(--primary);">ISCO3 - International Scientific Committee</a></li>
+                        <li>🌐 <a href="#" style="color: var(--primary);">SIOOT - Italian Society O2-O3 Therapy</a></li>
+                        <li>🌐 <a href="#" style="color: var(--primary);">Madrid Declaration on Ozone Therapy</a></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3>Key References</h3>
+                    <ul style="line-height: 2; margin-top: 1rem; list-style: none; font-size: 0.9rem;">
+                        <li>• Hidalgo-Tallón et al. 2013 (Rev Soc Esp Dolor)</li>
+                        <li>• Tirelli et al. 2022 (Eur Rev Med Pharmacol Sci)</li>
+                        <li>• Petrikonis et al. 2024 (Pharmaceutics)</li>
+                        <li>• Cordero et al. 2013 (CoQ10 in FM)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📧</div>
+                    <h3>Contact & Support</h3>
+                    <p style="margin-top: 1rem;">
+                        <strong>Corresponding Author:</strong><br>
+                        Roberto Casale, MD<br>
+                        Opusmedica, Piacenza, Italy<br>
+                        📧 roberto.casale@opusmedica.it
+                    </p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 3rem; border-radius: 20px; margin: 3rem 0; text-align: center;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">Research Priorities</h3>
+                <p style="max-width: 800px; margin: 0 auto 2rem; line-height: 1.8;">
+                    While preliminary evidence is promising, adequately powered double-blind, sham-controlled RCTs are urgently needed to definitively establish efficacy, optimize protocols, identify predictive biomarkers, and validate mechanistic hypotheses.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Nrf2 nuclear translocation studies
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Peripheral nerve regeneration trials
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Neuroimaging studies
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Long-term safety registries
+                    </span>
+                    <span style="background: white; padding: 0.7rem 1.5rem; border-radius: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        ✅ Cost-effectiveness analyses
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>A Consensus Manual for the Use of O₂-O₃-AHT in Fibromyalgia</h3>
+            <p style="margin: 1rem 0; opacity: 0.8;">
+                Edited by Roberto Casale & Piercarlo Sarzi-Puttini<br>
+                Opusmedica, Persons Care & Research, Piacenza, Italy
+            </p>
+            
+            <div class="footer-links">
+                <a href="#intro">Introduction</a>
+                <a href="#pathophysiology">Pathophysiology</a>
+                <a href="#mechanism">Mechanism</a>
+                <a href="#protocol">Protocol</a>
+                <a href="#safety">Safety</a>
+                <a href="#resources">Resources</a>
+            </div>
+
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.6;">
+                © 2025 Opusmedica NPO & Foundation Ermete, Milan, Italy. All rights reserved.<br>
+                This manual represents current evidence and expert consensus. Protocols should be adapted based on individual patient characteristics and clinical judgment.
+            </p>
+
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.5;">
+                Website created for educational purposes. Not a substitute for professional medical advice.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
-        return;
-      }
-      [...content.children].forEach(el => {
-        if (el.innerText.toLowerCase().includes(val)) el.style.display = '';
-        else el.style.display = 'none';
-      });
-    }
-    // DARK MODE
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-    }
-    // LANGUAGE SWITCHER
-    function switchLang() {
-      var lang = document.getElementById("languageSwitcher").value;
-      document.querySelectorAll('.only-it, [lang="it"]').forEach(e => e.style.display = lang === 'it' ? '' : 'none');
-      document.querySelectorAll('.only-en, [lang="en"]').forEach(e => e.style.display = lang === 'en' ? '' : 'none');
-      // Quiz refresh/lang
-      loadQuiz();
-    }
-    // INTERACTIVE QUIZ LOGIC
-    const quiz = [
-      { qIT:"Che biomarcatori vengono monitorati in O2-O3-AHT?", opts:["IL-6, TNF-α, hsCRP","Bilirubina","PT, INR"], ans:0, 
-        qEN:"Which biomarkers are monitored in O2-O3-AHT?", opts:["IL-6, TNF-α, hsCRP","Bilirubin","PT, INR"], ans:0 },
-      { qIT:"Qual è il primo step nella flowchart?", opts:["Valutazione clinica","Inizio terapia","Mantenimento"], ans:0, 
-        qEN:"What is the first flowchart step?", opts:["Clinical assessment","Start therapy","Maintenance"], ans:0 },
-    ];
-    let quizIndex = 0;
-    function loadQuiz() {
-      const lang = document.getElementById("languageSwitcher").value;
-      document.getElementById("quizQn").innerHTML = lang === 'it' ? quiz[quizIndex].qIT : quiz[quizIndex].qEN;
-      let opts = lang === 'it' ? quiz[quizIndex].opts : quiz[quizIndex].opts;
-      document.getElementById("quizOptions").innerHTML = opts.map((o,i)=>'<button onclick="checkQuiz('+i+')">'+o+'</button>').join(" ");
-      document.getElementById('quizFeedback').innerHTML = "";
-    }
-    function checkQuiz(opt) {
-      const lang = document.getElementById("languageSwitcher").value;
-      if(opt === quiz[quizIndex].ans) {
-        document.getElementById('quizFeedback').innerHTML = (lang=='it'?'<span class="quiz-success">Risposta corretta!</span>':'<span class="quiz-success">Correct!</span>');
-      } else {
-        document.getElementById('quizFeedback').innerHTML = (lang=='it'?'<span class="quiz-wrong">Risposta errata</span>':'<span class="quiz-wrong">Wrong answer</span>');
-      }
-    }
-    function nextQuiz() {
-      quizIndex = (quizIndex+1)%quiz.length;
-      loadQuiz();
-    }
-    // VIDEO - già tutto in embed responsive
 
-    // COMMENTS system (localStorage, solo lato client)
-    function renderComments() {
-      let c = JSON.parse(localStorage.getItem('comments')||'[]');
-      document.getElementById('commentsList').innerHTML = c.map(o=>'<div class="comment"><div>'+o.text+'</div><div class="date">'+o.date+'</div></div>').join("");
-    }
-    function addComment() {
-      let val = document.getElementById('commentInput').value.trim();
-      if(!val) return;
-      let c = JSON.parse(localStorage.getItem('comments')||'[]');
-      c.unshift({text:val, date:new Date().toLocaleString()});
-      localStorage.setItem('comments',JSON.stringify(c));
-      document.getElementById('commentInput').value = "";
-      renderComments();
-    }
-    // FLOWCHART
-    document.addEventListener("DOMContentLoaded", function(){
-      mermaid.initialize({startOnLoad:true, theme:'default'});
-      renderComments();
-      loadQuiz();
-    });
-  </script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Accordion functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const wasActive = item.classList.contains('active');
+                
+                // Close all accordion items
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Animate progress meters when visible
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fill = entry.target.querySelector('.progress-meter-fill');
+                    if (fill) {
+                        const width = fill.style.width;
+                        fill.style.width = '0%';
+                        setTimeout(() => {
+                            fill.style.width = width;
+                        }, 100);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.biomarker-card').forEach(card => {
+            progressObserver.observe(card);
+        });
+
+        // Active navigation highlight
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.color = 'var(--warning)';
+                }
+            });
+        });
+
+        // Download button functionality (placeholder)
+        document.querySelectorAll('.btn').forEach(btn => {
+            if (btn.textContent.includes('Download')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Download functionality would be implemented here.\n\nThis would generate/download the respective PDF document.');
+                });
+            }
+        });
+
+        // Add animation delay to stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.textContent;
+                    
+                    // Simple counter animation for percentages
+                    if (finalValue.includes('%')) {
+                        const numericValue = parseInt(finalValue);
+                        let current = 0;
+                        const increment = numericValue / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= numericValue) {
+                                target.textContent = finalValue;
+                                clearInterval(timer);
+                            } else {
+                                target.textContent = Math.floor(current) + '%';
+                            }
+                        }, 20);
+                    }
+                    
+                    statsObserver.unobserve(target);
+                }
+            });
+        }, observerOptions);
+
+        statNumbers.forEach(stat => statsObserver.observe(stat));
+
+        // Console welcome message
+        console.log('%c🫁 O₂-O₃-AHT Consensus Manual', 'color: #2c5f7c; font-size: 20px; font-weight: bold;');
+        console.log('%cDeveloped for educational purposes', 'color: #7f8c8d; font-size: 12px;');
+        console.log('%cEdited by: Roberto Casale & Piercarlo Sarzi-Puttini', 'color: #4a9eba; font-size: 12px;');
+    </script>
 </body>
-</html>
+</html>1rem 0;">Mandatory Screening:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li><strong>G6PD Activity</strong> - ABSOLUTE REQUIREMENT (deficiency = contraindication)</li>
+                            <li>Complete blood count (CBC)</li>
+                            <li>Comprehensive metabolic panel (CMP)</li>
+                            <li>Thyroid function (TSH, free T4)</li>
+                        </ul>
+                        <h4 style="color: var(--accent); margin: 1.5rem 0 1rem;">Baseline Biomarkers:</h4>
+                        <ul style="line-height: 2; margin-left: 2rem;">
+                            <li>Oxidative stress: MDA, AOPP, 8-OHdG</li>
+                            <li>Antioxidant capacity: TAC, SOD, GPx</li>
+                            <li>Inflammation: hsCRP, IL-6, TNF-α</li>
+                            <li>Glutathione status: GSH, GSH:GSSG ratio</li>
+                        </ul>
+                        <h4 style="color: var(--accent); margin: 
